@@ -102,7 +102,7 @@ const Login = () => {
     }
 
     return (
-        <div className="max-w-md mx-auto mt-10 p-8 border rounded-lg shadow-lg bg-white dark:bg-black">
+        <div className="w-full mx-auto mt-10 p-8 border rounded-lg shadow-lg bg-white dark:bg-black">
             <div className="flex justify-between items-center mb-4">
                 <button onClick={() => navigate(-1)} className="btn btn-ghost">
                     <FaArrowLeft className="text-xl" />
