@@ -1,4 +1,3 @@
-
 import React, { useContext } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../provider/AuthProvider';
@@ -91,6 +90,17 @@ const Navbar = () => {
                                     My Donations
                                 </NavLink>
                             </li>
+
+                            {/* Theme Toggle Button in Dropdown */}
+                            <li>
+                                <button
+                                    onClick={toggleTheme}
+                                    className="btn btn-ghost flex items-center gap-2 w-full"
+                                >
+                                    {theme === 'light' ? <FaRegMoon className="text-xl" /> : <FaRegSun className="text-xl" />}
+                                    Toggle Theme
+                                </button>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -150,7 +160,7 @@ const Navbar = () => {
 
                 {/* Navbar End */}
                 <div className="navbar-end flex items-center gap-4">
-                    {/* Theme Toggle Button */}
+                    {/* Desktop Theme Toggle */}
                     <button
                         onClick={toggleTheme}
                         className="btn btn-sm btn-ghost hover:bg-gray-200 dark:hover:bg-gray-700 transition duration-300 ease-in-out max-[1020px]:hidden max-[1025px]:visible"
