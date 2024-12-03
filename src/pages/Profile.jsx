@@ -24,7 +24,6 @@ const Profile = () => {
                                 alt="User Avatar"
                                 className="w-40 h-40 rounded-full mx-auto mb-6 border-4 border-white shadow-lg transform transition duration-300 group-hover:scale-110"
                             />
-
                         </div>
 
                         {/* User Details */}

@@ -10,7 +10,6 @@ const PrivateRoutes = () => {
         return <Navigate to="/auth/login" replace />;
     }
 
-
     return <Outlet />;
 };
 
