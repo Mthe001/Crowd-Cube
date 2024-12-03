@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global styles for light and dark themes */
+html.light {
+  background-color: #ffffff;  /* Light background color */
+  color: #000000;  /* Light text color */
+}
+
+html.dark {
+  background-color: #121212;  /* Dark background color */
+  color: #ffffff;  /* Dark text color */
+}
+
+/* Optional: Tailwind classes for dark mode elements */
+body.dark .btn-primary {
+  background-color: #3b82f6; /* Example of button color in dark mode */
+}
+
+body.light .btn-primary {
+  background-color: #2563eb; /* Example of button color in light mode */
+}
+
+
+.auth-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.auth-main {
+  flex-grow: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.auth-layout .auth-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 30px;
+}
+
+.auth-main .content {
+  width: 100%;
+  max-width: 500px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Active link styling */
+.active-link {
+    font-weight: bold;
+    color: #3498db; /* Active color */
+    border-bottom: 2px solid #3498db;
+}
+
+/* Inactive link styling */
+.inactive-link {
+    color: inherit;
+    transition: color 0.3s ease-in-out;
+}
+
+/* Hover effect for inactive links */
+.inactive-link:hover {
+    color: #7f8c8d; /* Hover color */
+}
