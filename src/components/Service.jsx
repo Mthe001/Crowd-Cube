@@ -35,7 +35,7 @@ const Service = () => {
     ];
 
     return (
-        <div className="min-h-screen bg-gray-100 dark:bg-gray-900 py-10">
+        <div className=" my-10 bg-gray-100 dark:bg-zinc-900 py-10 rounded-lg">
             <div className="container mx-auto px-6 lg:px-20">
                 {/* Header Section */}
                 <div className="text-center mb-10">
@@ -52,10 +52,10 @@ const Service = () => {
                     {services.map((service, index) => (
                         <div
                             key={index}
-                            className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-xl transition-transform transform hover:scale-105"
+                            className="p-6 bg-white dark:bg-zinc-800 rounded-lg shadow-md hover:shadow-xl transition-transform transform hover:scale-105"
                         >
                             <div
-                                className="flex items-center justify-center mb-4 tooltip tooltip-top"
+                                className="flex items-center justify-center cursor-pointer mb-4 tooltip tooltip-top"
                                 data-tip={service.title}
                             >
                                 <span className="text-4xl">{service.icon}</span>
