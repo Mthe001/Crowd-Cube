@@ -2,7 +2,7 @@ import React from 'react';
 
 const About = () => {
     return (
-        <div className="bg-gray-50 dark:bg-black py-16 px-6 rounded-lg">
+        <div className="bg-white dark:bg-zinc-950 py-16 px-6 rounded-lg">
             {/* Hero Section */}
             <div className="text-center mb-16">
                 <h1 className="text-4xl sm:text-5xl font-bold text-gray-800 dark:text-white mb-4">
@@ -16,7 +16,7 @@ const About = () => {
             {/* Card Section */}
             <div className="max-w-6xl mx-auto grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                 {/* Card 1 */}
-                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-xl transform hover:scale-105 transition duration-300">
+                <div className="bg-white dark:bg-zinc-800 rounded-lg shadow-lg p-6 hover:shadow-xl transform hover:scale-105 transition duration-300">
                     <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">
                         Personal Needs
                     </h3>
@@ -27,7 +27,7 @@ const About = () => {
                 </div>
 
                 {/* Card 2 */}
-                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-xl transform hover:scale-105 transition duration-300">
+                <div className="bg-white dark:bg-zinc-800 rounded-lg shadow-lg p-6 hover:shadow-xl transform hover:scale-105 transition duration-300">
                     <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">
                         Creative Ideas
                     </h3>
@@ -38,7 +38,7 @@ const About = () => {
                 </div>
 
                 {/* Card 3 */}
-                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-xl transform hover:scale-105 transition duration-300">
+                <div className="bg-white dark:bg-zinc-800 rounded-lg shadow-lg p-6 hover:shadow-xl transform hover:scale-105 transition duration-300">
                     <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">
                         Startups and Innovation
                     </h3>
@@ -49,7 +49,7 @@ const About = () => {
                 </div>
 
                 {/* Card 4 */}
-                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-xl transform hover:scale-105 transition duration-300">
+                <div className="bg-white dark:bg-zinc-800 rounded-lg shadow-lg p-6 hover:shadow-xl transform hover:scale-105 transition duration-300">
                     <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">
                         Community Impact
                     </h3>
@@ -60,7 +60,7 @@ const About = () => {
                 </div>
 
                 {/* Card 5 */}
-                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-xl transform hover:scale-105 transition duration-300">
+                <div className="bg-white dark:bg-zinc-800 rounded-lg shadow-lg p-6 hover:shadow-xl transform hover:scale-105 transition duration-300">
                     <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">
                         Environmental Projects
                     </h3>
@@ -70,8 +70,8 @@ const About = () => {
                     </p>
                 </div>
 
-                {/* Card 6 */}
-                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-xl transform hover:scale-105 transition duration-300">
+
+                <div className="bg-white dark:bg-zinc-800 rounded-lg shadow-lg p-6 hover:shadow-xl transform hover:scale-105 transition duration-300">
                     <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">
                         Technology Advancements
                     </h3>
@@ -84,7 +84,7 @@ const About = () => {
 
             {/* Call-to-Action */}
             <div className="text-center mt-12">
-                <button className="bg-indigo-500 hover:bg-indigo-600 text-white py-3 px-8 rounded-full shadow-md transform hover:scale-105 transition duration-300">
+                <button className="bg-zinc-700 hover:bg-zinc-500 text-white py-3 px-8 rounded-full shadow-md transform hover:scale-105 transition duration-300">
                     Explore Campaigns
                 </button>
             </div>
