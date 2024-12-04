@@ -2,8 +2,22 @@ import React from 'react';
 import Swal from 'sweetalert2';
 
 const Contact = () => {
+
+    const isAuthenticated = false;
+
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        if (!isAuthenticated) {
+
+            Swal.fire({
+                title: 'Access Denied!',
+                text: 'You must be logged in to send a message.',
+                icon: 'warning',
+                confirmButtonText: 'OK',
+            });
+            return;
+        }
 
 
         Swal.fire({
@@ -13,7 +27,6 @@ const Contact = () => {
             confirmButtonText: 'OK',
             timer: 3000,
         });
-
 
         e.target.reset();
     };
