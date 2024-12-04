@@ -28,9 +28,9 @@ const UpdateProfile = () => {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-100 dark:bg-gray-800">
-            <div className="max-w-lg w-full bg-white dark:bg-black p-8 rounded-lg shadow-xl">
-                <h2 className="text-3xl font-semibold mb-6 text-center text-gray-800 dark:text-white">Update Your Profile</h2>
+        <div className="flex justify-center items-center min-h-screen bg-white dark:bg-zinc-900">
+            <div className="max-w-lg w-full bg-gray-200 dark:bg-black p-8 rounded-lg shadow-xl">
+                <h2 className="text-3xl font-semibold mb-6 text-center  text-gray-800 dark:text-white">Update Your Profile</h2>
                 <form onSubmit={handleUpdate}>
                     <div className="mb-4">
                         <label className="block text-lg mb-2 text-gray-800 dark:text-white" htmlFor="displayName">Display Name</label>
@@ -58,7 +58,7 @@ const UpdateProfile = () => {
                     <div className="flex justify-center">
                         <button
                             type="submit"
-                            className={`w-full bg-blue-500 text-white p-3 rounded-lg ${loading ? 'bg-blue-400' : 'hover:bg-blue-600'}`}
+                            className={`w-full bg-gray-500 text-white p-3 rounded-lg ${loading ? 'bg-zinc-400' : 'hover:bg-zinc-900'}`}
                             disabled={loading}
                         >
                             {loading ? 'Updating...' : 'Update Profile'}
