@@ -4,6 +4,7 @@ import About from './About';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import Service from './Service';
+import Contact from './Contact';
 
 const Home = () => {
     return (
@@ -17,6 +18,10 @@ const Home = () => {
 
             <section>
                 <Service />
+            </section>
+
+            <section>
+                <Contact />
             </section>
 
 
