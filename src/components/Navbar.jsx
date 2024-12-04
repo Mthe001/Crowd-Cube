@@ -49,7 +49,7 @@ const Navbar = () => {
                 {/* Mobile/Tablet Hamburger Menu */}
                 <div className="navbar-start lg:hidden">
                     <div className="dropdown">
-                        <label tabIndex={0} className="btn btn-ghost lg:hidden">
+                        <label tabIndex={0} className="btn btn-ghost lg:hidden  text-orange-500">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="h-5 w-5"
@@ -67,7 +67,7 @@ const Navbar = () => {
                         </label>
                         <ul
                             tabIndex={0}
-                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+                            className="menu menu-sm dropdown-content bg-zinc-100 text-orange-500 dark:bg-zinc-900 rounded-box z-[1] mt-3 w-52 p-2 shadow"
                         >
                             <li>
                                 <NavLink
@@ -126,7 +126,7 @@ const Navbar = () => {
                     {/* Main Logo */}
                     <div className="navbar-start">
                         <NavLink to="/" className="btn btn-ghost lg:mx-0 text-xl">
-                            CrowdCube
+                            Crowd<span className='text-orange-500'>Cube</span>
                         </NavLink>
                     </div>
                 </div>
@@ -134,7 +134,7 @@ const Navbar = () => {
                 {/* Main Logo */}
                 <div className="navbar-start max-[1023px]:hidden max-[1024px]:visible">
                     <NavLink to="/" className="btn btn-ghost lg:mx-0 text-xl">
-                        CrowdCube
+                        Crowd<span className='text-orange-500'>Cube</span>
                     </NavLink>
                 </div>
 
