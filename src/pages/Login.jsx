@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router';
 import { AuthContext } from '../provider/AuthProvider';
 import { FaArrowLeft, FaEye, FaEyeSlash, FaGoogle, FaFacebook, FaGithub } from 'react-icons/fa';
 import { toast } from 'react-toastify';
@@ -11,7 +11,7 @@ const Login = () => {
         signInWithGithub,
         loginWithEmailPassword,
         user,
-        resetPassword
+        resetPassword,
     } = useContext(AuthContext);
 
     const navigate = useNavigate();
@@ -187,7 +187,13 @@ const Login = () => {
                 </div>
             )}
 
-
+            {/* Register link */}
+            <p className="text-center mt-6">
+                Don't have an account?{' '}
+                <Link to="/auth/register" className="text-blue-500">
+                    Register here
+                </Link>
+            </p>
 
             {/* Social login buttons */}
             {!isResettingPassword && (
@@ -212,7 +218,6 @@ const Login = () => {
                     </button>
                 </div>
             )}
-
         </div>
     );
 };
