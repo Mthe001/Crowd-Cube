@@ -35,7 +35,7 @@ const Service = () => {
     ];
 
     return (
-        <div className=" my-10 bg-gray-100 dark:bg-zinc-900 py-10 rounded-lg">
+        <div id='services' className=" my-10 bg-gray-100 dark:bg-zinc-900 py-10 rounded-lg">
             <div className="container mx-auto px-6 lg:px-20">
                 {/* Header Section */}
                 <div className="text-center mb-10">
