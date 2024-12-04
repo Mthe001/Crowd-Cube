@@ -13,6 +13,7 @@ import AllCampaigns from '../pages/AllCampaigns';
 import HomeLayout from '../layouts/HomeLayout'; // Import the HomeLayout
 import AuthLayout from '../layouts/AuthLayout'; // Import the AuthLayout
 import UpdateProfile from '../pages/UpdatePorfile';
+import Home from '../components/Home';
 
 const router = createBrowserRouter([
 
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
         path: "/",
         element: <HomeLayout />, // HomeLayout for main content
         children: [
+            {
+                path: '/',
+                element: <Home />,
+            },
             {
                 path: "profile",
                 element: <Profile />,

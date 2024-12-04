@@ -7,14 +7,13 @@ import Footer from './Footer';
 const Home = () => {
     return (
         <div>
-            <Navbar />
+
             <Header />
 
             <section>
                 <About />
             </section>
 
-            <Footer />
 
         </div>
     );
