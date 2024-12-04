@@ -2,43 +2,89 @@ import React from 'react';
 
 const About = () => {
     return (
-        <div className=" bg-gray-100 dark:bg-gray-900 py-12 px-6">
+        <div className="bg-gray-50 dark:bg-black py-16 px-6 rounded-lg">
             {/* Hero Section */}
             <div className="text-center mb-16">
-                <h1 className="text-5xl font-bold text-gray-800 dark:text-white mb-4">
+                <h1 className="text-4xl sm:text-5xl font-bold text-gray-800 dark:text-white mb-4">
                     About Our Crowdfunding Platform
                 </h1>
-                <p className="text-lg text-gray-600 dark:text-gray-300">
+                <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
                     Empowering dreams and ideas, one contribution at a time.
                 </p>
             </div>
 
-            {/* Content Section */}
-            <div className="max-w-4xl mx-auto bg-white dark:bg-black rounded-lg shadow-lg p-8 transform transition hover:scale-105">
-                <p className="text-lg text-gray-700 dark:text-gray-300 leading-7">
-                    A crowdfunding website is a platform where people can raise money for different projects, ideas, or
-                    causes by inviting others to contribute financially. These projects can include:
-                </p>
-                <ul className="list-disc list-inside my-6 text-gray-700 dark:text-gray-300">
-                    <li>
-                        <strong>Personal needs:</strong> Like medical expenses, education costs, or emergency support.
-                    </li>
-                    <li>
-                        <strong>Creative ideas:</strong> Such as making a film, publishing a book, or developing an app.
-                    </li>
-                    <li>
-                        <strong>Startups:</strong> Launching innovative products, businesses, or community initiatives.
-                    </li>
-                </ul>
-                <p className="text-lg text-gray-700 dark:text-gray-300 leading-7">
-                    By connecting creators and contributors, our platform fosters a community of support and innovation.
-                    Together, we turn ideas into reality and dreams into achievements.
-                </p>
+            {/* Card Section */}
+            <div className="max-w-6xl mx-auto grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                {/* Card 1 */}
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-xl transform hover:scale-105 transition duration-300">
+                    <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">
+                        Personal Needs
+                    </h3>
+                    <p className="text-gray-700 dark:text-gray-300">
+                        Raise funds for medical expenses, education costs, or emergency support. Every contribution
+                        makes a meaningful difference.
+                    </p>
+                </div>
+
+                {/* Card 2 */}
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-xl transform hover:scale-105 transition duration-300">
+                    <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">
+                        Creative Ideas
+                    </h3>
+                    <p className="text-gray-700 dark:text-gray-300">
+                        Fund your artistic dreams, whether it’s a film, a book, or the next big app idea. Let creativity
+                        soar with the help of our community.
+                    </p>
+                </div>
+
+                {/* Card 3 */}
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-xl transform hover:scale-105 transition duration-300">
+                    <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">
+                        Startups and Innovation
+                    </h3>
+                    <p className="text-gray-700 dark:text-gray-300">
+                        Turn your entrepreneurial vision into reality by connecting with supporters who believe in your
+                        groundbreaking ideas.
+                    </p>
+                </div>
+
+                {/* Card 4 */}
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-xl transform hover:scale-105 transition duration-300">
+                    <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">
+                        Community Impact
+                    </h3>
+                    <p className="text-gray-700 dark:text-gray-300">
+                        Launch initiatives that bring people together, solve challenges, and create positive change in
+                        your community.
+                    </p>
+                </div>
+
+                {/* Card 5 */}
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-xl transform hover:scale-105 transition duration-300">
+                    <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">
+                        Environmental Projects
+                    </h3>
+                    <p className="text-gray-700 dark:text-gray-300">
+                        Support eco-friendly projects aimed at preserving our planet, from clean energy solutions to
+                        tree-planting campaigns.
+                    </p>
+                </div>
+
+                {/* Card 6 */}
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-xl transform hover:scale-105 transition duration-300">
+                    <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">
+                        Technology Advancements
+                    </h3>
+                    <p className="text-gray-700 dark:text-gray-300">
+                        Back cutting-edge technologies and innovations that aim to solve global challenges and improve
+                        lives.
+                    </p>
+                </div>
             </div>
 
             {/* Call-to-Action */}
             <div className="text-center mt-12">
-                <button className="bg-indigo-500 text-white py-3 px-8 rounded-full shadow-md hover:bg-indigo-600 transition duration-300">
+                <button className="bg-indigo-500 hover:bg-indigo-600 text-white py-3 px-8 rounded-full shadow-md transform hover:scale-105 transition duration-300">
                     Explore Campaigns
                 </button>
             </div>

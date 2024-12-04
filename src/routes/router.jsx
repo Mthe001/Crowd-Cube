@@ -33,11 +33,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "settings",
-                element: (
-                    <PrivateRoutes>
-                        <UpdateProfile />,
-                    </PrivateRoutes>
-                ),
+                element: <UpdateProfile />,
             },
             {
                 path: "campaigns",

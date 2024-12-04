@@ -1,8 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../provider/AuthProvider';
-import { FaArrowLeft } from 'react-icons/fa';
-import { FaGoogle, FaFacebook, FaGithub, FaTwitter } from 'react-icons/fa';
+import { FaArrowLeft, FaEye, FaEyeSlash, FaGoogle, FaFacebook, FaGithub } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
 const Login = () => {
@@ -10,7 +9,6 @@ const Login = () => {
         signInWithGoogle,
         signInWithFacebook,
         signInWithGithub,
-        signInWithTwitter,
         loginWithEmailPassword,
         user,
         resetPassword
@@ -20,6 +18,7 @@ const Login = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState('');
     const [resetEmail, setResetEmail] = useState('');
     const [isResettingPassword, setIsResettingPassword] = useState(false);
@@ -54,16 +53,6 @@ const Login = () => {
         }
     };
 
-    const handleTwitterSignIn = async () => {
-        try {
-            await signInWithTwitter();
-            navigate('/');
-        } catch (error) {
-            console.error('Twitter Sign-In Error:', error);
-            setError('Twitter sign-in failed.');
-        }
-    };
-
     const handleEmailLogin = async (e) => {
         e.preventDefault();
         try {
@@ -80,7 +69,7 @@ const Login = () => {
         try {
             await resetPassword(resetEmail);
             toast.success('Password reset email sent!');
-            setIsResettingPassword(false); // Close the reset password form
+            setIsResettingPassword(false);
         } catch (error) {
             console.error('Password Reset Error:', error);
             setError('Failed to send reset email. Please try again.');
@@ -127,17 +116,24 @@ const Login = () => {
                     />
                 </div>
 
-                <div className="form-control">
+                <div className="form-control relative">
                     <label className="label">
                         <span className="label-text">Password</span>
                     </label>
                     <input
-                        type="password"
+                        type={showPassword ? 'text' : 'password'}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         className="input input-bordered w-full bg-slate-200 dark:bg-black"
                         required
                     />
+                    <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute inset-y-14  right-3 flex items-center text-gray-500 dark:text-gray-400"
+                    >
+                        {showPassword ? <FaEyeSlash /> : <FaEye />}
+                    </button>
                 </div>
 
                 <div className="text-right">
@@ -150,15 +146,12 @@ const Login = () => {
                     </button>
                 </div>
 
-
                 <button
                     type="submit"
-                    className="btn hover:border-1 hover:duration-300 hover:ease-in-out hover:border-white transition-all w-full mt-4  dark:bg-black bg-gray-100 dark:text-white  text-black"
+                    className="btn hover:border-1 hover:duration-300 hover:ease-in-out hover:border-white transition-all w-full mt-4 dark:bg-black bg-gray-100 dark:text-white text-black"
                 >
                     Login
                 </button>
-
-
             </form>
 
             {/* Forgot Password Modal or Form */}
@@ -194,34 +187,32 @@ const Login = () => {
                 </div>
             )}
 
+
+
             {/* Social login buttons */}
             {!isResettingPassword && (
-                <div className="mt-6 space-y-4">
+                <div className="mt-6 flex justify-around gap-4">
                     <button
                         onClick={handleGoogleSignIn}
-                        className="btn btn-outline w-full btn-secondary flex items-center justify-center"
+                        className="btn btn-outline btn-secondary flex items-center justify-center w-12 h-12 rounded-full"
                     >
-                        <FaGoogle className="mr-2 text-xl" />
-                        Login with Google
+                        <FaGoogle className="text-xl" />
                     </button>
                     <button
                         onClick={handleFacebookSignIn}
-                        className="btn btn-outline w-full btn-primary flex items-center dark:text-black justify-center"
+                        className="btn btn-outline btn-primary flex items-center justify-center w-12 h-12 rounded-full"
                     >
-                        <FaFacebook className="mr-2 text-xl" />
-                        Login with Facebook
+                        <FaFacebook className="text-xl" />
                     </button>
-
                     <button
                         onClick={handleGithubSignIn}
-                        className="btn btn-outline w-full dark:bg-black  flex items-center justify-center"
+                        className="btn btn-outline dark:bg-black flex items-center justify-center w-12 h-12 rounded-full"
                     >
-                        <FaGithub className="mr-2 text-xl" />
-                        Login with GitHub
+                        <FaGithub className="text-xl" />
                     </button>
-
                 </div>
             )}
+
         </div>
     );
 };
