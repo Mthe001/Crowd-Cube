@@ -5,11 +5,11 @@ import './embla-carousel.css';
 const Carousel = () => {
     const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
     const [images] = useState([
-        'https://images.pexels.com/photos/6113082/pexels-photo-6113082.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-        'https://i.ibb.co/ZczcTCq/ok4.png',
-        'https://i.ibb.co/FKWPG9R/ok.png',
-        'https://i.ibb.co/yRQ8kt9/ok2.png',
-        'https://i.ibb.co/NskC779/ok3.png',
+        'https://images.pexels.com/photos/3183183/pexels-photo-3183183.jpeg?auto=compress&cs=tinysrgb&w=1200',
+        'https://images.pexels.com/photos/355952/pexels-photo-355952.jpeg?auto=compress&cs=tinysrgb&w=1200',
+        'https://images.pexels.com/photos/1742370/pexels-photo-1742370.jpeg?auto=compress&cs=tinysrgb&w=1200',
+        'https://images.pexels.com/photos/171198/pexels-photo-171198.jpeg?auto=compress&cs=tinysrgb&w=1200',
+        'https://images.pexels.com/photos/6147357/pexels-photo-6147357.jpeg?auto=compress&cs=tinysrgb&w=1200',
     ]);
 
     const scrollNext = useCallback(() => {
@@ -18,11 +18,11 @@ const Carousel = () => {
 
     useEffect(() => {
         const interval = setInterval(scrollNext, 3000);
-        return () => clearInterval(interval); // Cleanup interval on unmount
+        return () => clearInterval(interval);
     }, [scrollNext]);
 
     useEffect(() => {
-        if (emblaApi) emblaApi.reInit(); // Ensure the Embla instance is re-initialized if needed
+        if (emblaApi) emblaApi.reInit();
     }, [emblaApi]);
 
     return (
