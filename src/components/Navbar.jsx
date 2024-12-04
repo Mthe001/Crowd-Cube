@@ -13,7 +13,6 @@ const Navbar = () => {
 
     const [isLoading, setIsLoading] = useState(true);
 
-
     useEffect(() => {
         const timer = setTimeout(() => {
             setIsLoading(false);
@@ -44,12 +43,12 @@ const Navbar = () => {
     }
 
     return (
-        <div>
-            <div className={`navbar ${theme === 'light' ? 'bg-white' : 'bg-base-900'} shadow`}>
+        <div className="w-11/12 mx-auto">
+            <div className={`navbar ${theme === 'light' ? 'bg-white' : 'bg-base-900'}`}>
                 {/* Mobile/Tablet Hamburger Menu */}
                 <div className="navbar-start lg:hidden">
                     <div className="dropdown">
-                        <label tabIndex={0} className="btn btn-ghost lg:hidden  text-orange-500">
+                        <label tabIndex={0} className="btn btn-ghost lg:hidden text-orange-500">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="h-5 w-5"
@@ -126,7 +125,7 @@ const Navbar = () => {
                     {/* Main Logo */}
                     <div className="navbar-start">
                         <NavLink to="/" className="btn btn-ghost lg:mx-0 text-xl">
-                            Crowd<span className='text-orange-500'>Cube</span>
+                            CrowdCube
                         </NavLink>
                     </div>
                 </div>
@@ -134,12 +133,12 @@ const Navbar = () => {
                 {/* Main Logo */}
                 <div className="navbar-start max-[1023px]:hidden max-[1024px]:visible">
                     <NavLink to="/" className="btn btn-ghost lg:mx-0 text-xl">
-                        Crowd<span className='text-orange-500'>Cube</span>
+                        CrowdCube
                     </NavLink>
                 </div>
 
                 {/* Navbar Center (Desktop Version) */}
-                <div className="navbar-center hidden lg:flex">
+                <div className="navbar-center hidden lg:flex font-semibold">
                     <ul className="menu menu-horizontal px-1">
                         <li>
                             <NavLink
@@ -189,7 +188,7 @@ const Navbar = () => {
                     {/* Desktop Theme Toggle */}
                     <button
                         onClick={toggleTheme}
-                        className="btn btn-sm btn-ghost hover:bg-gray-200 dark:hover:bg-gray-700 transition duration-300 ease-in-out max-[1020px]:hidden max-[1025px]:visible"
+                        className="btn btn-sm btn-ghost hover:bg-gray-200 dark:hover:bg-zinc-900 transition duration-300 ease-in-out max-[1020px]:hidden max-[1025px]:visible"
                     >
                         {theme === 'light' ? <FaRegMoon className="text-xl" /> : <FaRegSun className="text-xl" />}
                     </button>
@@ -206,7 +205,12 @@ const Navbar = () => {
                         </div>
                     ) : (
                         <div className="dropdown dropdown-end">
-                            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                            <div
+                                tabIndex={0}
+                                role="button"
+                                className="btn btn-ghost btn-circle hover:dark:bg-zinc-950 avatar tooltip tooltip-bottom"
+                                data-tip={user?.displayName || "No Display Name"}
+                            >
                                 <div className="w-10 rounded-full">
                                     <img alt="User Avatar" src={userPhotoUrl} />
                                 </div>
