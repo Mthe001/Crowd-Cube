@@ -15,6 +15,7 @@ import AuthLayout from '../layouts/AuthLayout'; // Import the AuthLayout
 import UpdateProfile from '../pages/UpdatePorfile';
 import Home from '../components/Home';
 
+
 const router = createBrowserRouter([
 
 
@@ -39,6 +40,16 @@ const router = createBrowserRouter([
                 path: "campaigns",
                 element: <AllCampaigns />,
             },
+
+            {
+                path: '/campaign/:id',
+                element: (
+                    <PrivateRoutes>
+
+                    </PrivateRoutes>
+                ),
+            },
+
 
             // Private Routes under HomeLayout
             {
