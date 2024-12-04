@@ -1,16 +1,29 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../provider/AuthProvider';
 import { ThemeContext } from '../provider/AuthProvider';
 import { FaRegSun, FaRegMoon, FaSignInAlt, FaUserPlus } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+import Loading from '../pages/Loading';
 
 const Navbar = () => {
     const { user, logout } = useContext(AuthContext);
     const { theme, toggleTheme } = useContext(ThemeContext);
     const navigate = useNavigate();
 
+    const [isLoading, setIsLoading] = useState(true);
+
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 1000);
+
+        return () => clearTimeout(timer);
+    }, []);
+
     const handleLogOut = async () => {
+        setIsLoading(true); // Show loading during logout
         try {
             await logout();
             toast.success('Logout successful');
@@ -18,11 +31,17 @@ const Navbar = () => {
         } catch (error) {
             toast.error('Error during logout');
             console.error('Logout error:', error);
+        } finally {
+            setIsLoading(false);
         }
     };
 
     const defaultPhotoUrl = "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp";
     const userPhotoUrl = user?.photoURL || defaultPhotoUrl;
+
+    if (isLoading) {
+        return <Loading />;
+    }
 
     return (
         <div>
@@ -48,7 +67,7 @@ const Navbar = () => {
                         </label>
                         <ul
                             tabIndex={0}
-                            className="menu menu-sm   dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
                         >
                             <li>
                                 <NavLink
@@ -106,22 +125,18 @@ const Navbar = () => {
 
                     {/* Main Logo */}
                     <div className="navbar-start">
-                        <NavLink to="/" className="btn btn-ghost  lg:mx-0 text-xl">
+                        <NavLink to="/" className="btn btn-ghost lg:mx-0 text-xl">
                             CrowdCube
                         </NavLink>
                     </div>
-
                 </div>
 
-
                 {/* Main Logo */}
-                <div className="navbar-start  max-[1023px]:hidden max-[1024px]:visible ">
-                    <NavLink to="/" className="btn btn-ghost  lg:mx-0 text-xl">
+                <div className="navbar-start max-[1023px]:hidden max-[1024px]:visible">
+                    <NavLink to="/" className="btn btn-ghost lg:mx-0 text-xl">
                         CrowdCube
                     </NavLink>
                 </div>
-
-
 
                 {/* Navbar Center (Desktop Version) */}
                 <div className="navbar-center hidden lg:flex">
@@ -184,11 +199,9 @@ const Navbar = () => {
                         <div className="flex gap-4">
                             <NavLink to="/auth/login" className="btn btn-sm btn-ghost flex items-center gap-2">
                                 <FaSignInAlt />
-
                             </NavLink>
                             <NavLink to="/auth/register" className="btn btn-sm btn-ghost flex items-center gap-2">
                                 <FaUserPlus />
-
                             </NavLink>
                         </div>
                     ) : (
