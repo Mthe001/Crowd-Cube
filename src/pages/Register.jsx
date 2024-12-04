@@ -1,26 +1,26 @@
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../provider/AuthProvider';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaEye, FaEyeSlash, FaArrowLeft } from 'react-icons/fa';
 
 const Register = () => {
-    const { signUpWithEmailPassword, updateUserProfile } = useContext(AuthContext); // Accessing the signUp function
+    const { signUpWithEmailPassword, updateUserProfile } = useContext(AuthContext);
     const navigate = useNavigate();
 
-    // State for form inputs
+
     const [name, setName] = useState('');
     const [photoUrl, setPhotoUrl] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
-    // Password visibility toggle
+
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-    // Password validation function
+
     const validatePassword = (password) => {
         const minLength = 8;
         const hasUpperCase = /[A-Z]/.test(password);
@@ -43,20 +43,20 @@ const Register = () => {
         if (!hasSpecialChar) {
             return "Password must contain at least one special character.";
         }
-        return null; // Password is valid
+        return null;
     };
 
-    // Handle form submission
+
     const handleRegister = async (e) => {
         e.preventDefault();
 
-        // Check if passwords match
+
         if (password !== confirmPassword) {
             toast.error('Passwords do not match!');
             return;
         }
 
-        // Validate password
+
         const passwordError = validatePassword(password);
         if (passwordError) {
             toast.error(passwordError);
@@ -64,14 +64,14 @@ const Register = () => {
         }
 
         try {
-            // Call the signUpWithEmailPassword method from AuthContext
+
             const userCredential = await signUpWithEmailPassword(email, password);
 
-            // Update the user's profile with the name and photo URL
+
             await updateUserProfile(name, photoUrl);
 
             toast.success('Registration successful!');
-            navigate('/'); // Redirect to home page
+            navigate('/');
         } catch (error) {
             console.error('Registration Error:', error);
             toast.error(error.message || 'Registration failed!');
@@ -80,8 +80,16 @@ const Register = () => {
 
     return (
         <div className="max-w-md mx-auto mt-10 p-8 border rounded-lg shadow-lg bg-white dark:bg-black">
+            {/* Back Button */}
+            <button
+                onClick={() => navigate('/')}
+                className="flex items-center mb-4 text-gray-600 hover:text-black dark:hover:text-white"
+            >
+                <FaArrowLeft className="mr-2" /> Back
+            </button>
+
             <h2 className="text-2xl font-bold text-center mb-6">Register</h2>
-            <ToastContainer /> {/* Toast Container for showing toast alerts */}
+            <ToastContainer />
 
             <form onSubmit={handleRegister} className="space-y-4">
                 {/* Name Field */}
@@ -98,7 +106,7 @@ const Register = () => {
                     />
                 </div>
 
-                {/* Photo URL Field */}
+
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Photo URL</span>
@@ -125,7 +133,7 @@ const Register = () => {
                     />
                 </div>
 
-                {/* Password Field */}
+
                 <div className="form-control relative">
                     <label className="label">
                         <span className="label-text">Password</span>
@@ -146,7 +154,7 @@ const Register = () => {
                     </button>
                 </div>
 
-                {/* Confirm Password Field */}
+
                 <div className="form-control relative">
                     <label className="label">
                         <span className="label-text">Confirm Password</span>
@@ -167,9 +175,17 @@ const Register = () => {
                     </button>
                 </div>
 
-                {/* Submit Button */}
+
                 <button type="submit" className="btn btn-primary w-full mt-4">Sign Up</button>
             </form>
+
+
+            <p className="text-center mt-6">
+                Already have an account?{' '}
+                <Link to="/auth/login" className="text-blue-500">
+                    Login here
+                </Link>
+            </p>
         </div>
     );
 };
