@@ -1,7 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../provider/AuthProvider';
-import { useNavigate } from 'react-router-dom'; // to navigate after update
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { FaArrowLeft } from 'react-icons/fa';
 
 const UpdateProfile = () => {
     const { user, updateUserProfile } = useContext(AuthContext);
@@ -16,10 +17,10 @@ const UpdateProfile = () => {
         setLoading(true);
 
         try {
-            // Call updateUserProfile without passing email
+
             await updateUserProfile(displayName, photoURL);
             toast.success('Profile updated successfully!');
-            navigate('/profile'); // Navigate to profile page after successful update
+            navigate('/profile');
         } catch (error) {
             toast.error('Failed to update profile. Please try again.');
         } finally {
@@ -30,7 +31,18 @@ const UpdateProfile = () => {
     return (
         <div className="flex justify-center items-center min-h-screen bg-white dark:bg-zinc-900">
             <div className="max-w-lg w-full bg-gray-200 dark:bg-black p-8 rounded-lg shadow-xl">
-                <h2 className="text-3xl font-semibold mb-6 text-center  text-gray-800 dark:text-white">Update Your Profile</h2>
+                {/* Back Button */}
+                <button
+                    className="flex items-center mb-4 text-gray-800 dark:text-white hover:underline"
+                    onClick={() => navigate(-1)}
+                >
+                    <FaArrowLeft className="mr-2" /> Back
+                </button>
+
+                <h2 className="text-3xl font-semibold mb-6 text-center text-gray-800 dark:text-white">
+                    Update Your Profile
+                </h2>
+
                 <form onSubmit={handleUpdate}>
                     <div className="mb-4">
                         <label className="block text-lg mb-2 text-gray-800 dark:text-white" htmlFor="displayName">Display Name</label>
