@@ -48,7 +48,7 @@ const Navbar = () => {
                         </label>
                         <ul
                             tabIndex={0}
-                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+                            className="menu menu-sm   dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
                         >
                             <li>
                                 <NavLink
@@ -103,14 +103,25 @@ const Navbar = () => {
                             </li>
                         </ul>
                     </div>
+
+                    {/* Main Logo */}
+                    <div className="navbar-start">
+                        <NavLink to="/" className="btn btn-ghost  lg:mx-0 text-xl">
+                            CrowdCube
+                        </NavLink>
+                    </div>
+
                 </div>
 
+
                 {/* Main Logo */}
-                <div className="navbar-start">
-                    <NavLink to="/" className="btn btn-ghost text-xl">
+                <div className="navbar-start  max-[1020px]:hidden max-[1024px]:visible ">
+                    <NavLink to="/" className="btn btn-ghost  lg:mx-0 text-xl">
                         CrowdCube
                     </NavLink>
                 </div>
+
+
 
                 {/* Navbar Center (Desktop Version) */}
                 <div className="navbar-center hidden lg:flex">
