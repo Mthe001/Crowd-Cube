@@ -115,7 +115,7 @@ const Navbar = () => {
 
 
                 {/* Main Logo */}
-                <div className="navbar-start  max-[1020px]:hidden max-[1024px]:visible ">
+                <div className="navbar-start  max-[1023px]:hidden max-[1024px]:visible ">
                     <NavLink to="/" className="btn btn-ghost  lg:mx-0 text-xl">
                         CrowdCube
                     </NavLink>
@@ -184,11 +184,11 @@ const Navbar = () => {
                         <div className="flex gap-4">
                             <NavLink to="/auth/login" className="btn btn-sm btn-ghost flex items-center gap-2">
                                 <FaSignInAlt />
-                                Login
+
                             </NavLink>
                             <NavLink to="/auth/register" className="btn btn-sm btn-ghost flex items-center gap-2">
                                 <FaUserPlus />
-                                Register
+
                             </NavLink>
                         </div>
                     ) : (
