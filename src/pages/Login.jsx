@@ -1,8 +1,9 @@
 import React, { useState, useContext } from 'react';
-import { useNavigate, Link } from 'react-router';
+import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../provider/AuthProvider';
 import { FaArrowLeft, FaEye, FaEyeSlash, FaGoogle, FaFacebook, FaGithub } from 'react-icons/fa';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Import Toastify CSS
 
 const Login = () => {
     const {
@@ -26,30 +27,33 @@ const Login = () => {
     const handleGoogleSignIn = async () => {
         try {
             await signInWithGoogle();
+            toast.success('Logged in with Google!');
             navigate('/');
         } catch (error) {
             console.error('Google Sign-In Error:', error);
-            setError('Google sign-in failed.');
+            toast.error('Google sign-in failed.');
         }
     };
 
     const handleFacebookSignIn = async () => {
         try {
             await signInWithFacebook();
+            toast.success('Logged in with Facebook!');
             navigate('/');
         } catch (error) {
             console.error('Facebook Sign-In Error:', error);
-            setError('Facebook sign-in failed.');
+            toast.error('Facebook sign-in failed.');
         }
     };
 
     const handleGithubSignIn = async () => {
         try {
             await signInWithGithub();
+            toast.success('Logged in with GitHub!');
             navigate('/');
         } catch (error) {
             console.error('GitHub Sign-In Error:', error);
-            setError('GitHub sign-in failed.');
+            toast.error('GitHub sign-in failed.');
         }
     };
 
@@ -57,10 +61,11 @@ const Login = () => {
         e.preventDefault();
         try {
             await loginWithEmailPassword(email, password);
+            toast.success('Logged in successfully!');
             navigate('/');
         } catch (error) {
             console.error('Email Login Error:', error);
-            setError('Email login failed.');
+            toast.error('Email login failed. Please check your credentials.');
         }
     };
 
@@ -72,7 +77,7 @@ const Login = () => {
             setIsResettingPassword(false);
         } catch (error) {
             console.error('Password Reset Error:', error);
-            setError('Failed to send reset email. Please try again.');
+            toast.error('Failed to send reset email. Please try again.');
         }
     };
 
@@ -218,6 +223,19 @@ const Login = () => {
                     </button>
                 </div>
             )}
+
+            {/* ToastContainer */}
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
         </div>
     );
 };
