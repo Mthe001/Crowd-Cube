@@ -1,4 +1,3 @@
-
 import React, { useContext } from 'react';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../provider/AuthProvider';
@@ -9,6 +8,20 @@ const AddCampaign = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const form = e.target;
+
+        const campaignDeadline = new Date(form.deadline.value);
+        const currentDate = new Date();
+
+
+        if (campaignDeadline < currentDate) {
+            Swal.fire({
+                title: 'Invalid Deadline!',
+                text: 'The deadline cannot be set to a past date.',
+                icon: 'error',
+                confirmButtonText: 'Okay',
+            });
+            return;
+        }
 
         const campaign = {
             imageUrl: form.imageUrl.value,
@@ -22,7 +35,6 @@ const AddCampaign = () => {
         };
 
         console.log('Campaign Data to be sent:', campaign);
-
 
         fetch('http://localhost:5000/campaigns', {
             method: 'POST',
