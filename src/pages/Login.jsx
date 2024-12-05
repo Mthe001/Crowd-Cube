@@ -24,9 +24,61 @@ const Login = () => {
     const [resetEmail, setResetEmail] = useState('');
     const [isResettingPassword, setIsResettingPassword] = useState(false);
 
+    // const handleGoogleSignIn = async () => {
+    //     try {
+    //         await signInWithGoogle();
+    //         toast.success('Logged in with Google!');
+    //         navigate('/');
+    //     } catch (error) {
+    //         console.error('Google Sign-In Error:', error);
+    //         toast.error('Google sign-in failed.');
+    //     }
+    // };
+
+    // const handleFacebookSignIn = async () => {
+    //     try {
+    //         await signInWithFacebook();
+    //         toast.success('Logged in with Facebook!');
+    //         navigate('/');
+    //     } catch (error) {
+    //         console.error('Facebook Sign-In Error:', error);
+    //         toast.error('Facebook sign-in failed.');
+    //     }
+    // };
+
+    // const handleGithubSignIn = async () => {
+    //     try {
+    //         await signInWithGithub();
+    //         toast.success('Logged in with GitHub!');
+    //         navigate('/');
+    //     } catch (error) {
+    //         console.error('GitHub Sign-In Error:', error);
+    //         toast.error('GitHub sign-in failed.');
+    //     }
+    // };
+
     const handleGoogleSignIn = async () => {
         try {
-            await signInWithGoogle();
+            const userCredential = await signInWithGoogle();
+            const user = userCredential.user;
+
+            // Extract relevant user information
+            const userData = {
+                uid: user.uid,
+                name: user.displayName || 'Anonymous User',
+                email: user.email,
+                photoURL: user.photoURL,
+            };
+
+            // Save user data to the database
+            await fetch('http://localhost:5000/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userData),
+            });
+
             toast.success('Logged in with Google!');
             navigate('/');
         } catch (error) {
@@ -35,9 +87,27 @@ const Login = () => {
         }
     };
 
+    // Similarly for Facebook and GitHub
     const handleFacebookSignIn = async () => {
         try {
-            await signInWithFacebook();
+            const userCredential = await signInWithFacebook();
+            const user = userCredential.user;
+
+            const userData = {
+                uid: user.uid,
+                name: user.displayName || 'Anonymous User',
+                email: user.email,
+                photoURL: user.photoURL,
+            };
+
+            await fetch('http://localhost:5000/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userData),
+            });
+
             toast.success('Logged in with Facebook!');
             navigate('/');
         } catch (error) {
@@ -48,7 +118,24 @@ const Login = () => {
 
     const handleGithubSignIn = async () => {
         try {
-            await signInWithGithub();
+            const userCredential = await signInWithGithub();
+            const user = userCredential.user;
+
+            const userData = {
+                uid: user.uid,
+                name: user.displayName || 'Anonymous User',
+                email: user.email,
+                photoURL: user.photoURL,
+            };
+
+            await fetch('http://localhost:5000/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userData),
+            });
+
             toast.success('Logged in with GitHub!');
             navigate('/');
         } catch (error) {
@@ -56,6 +143,7 @@ const Login = () => {
             toast.error('GitHub sign-in failed.');
         }
     };
+
 
     const handleEmailLogin = async (e) => {
         e.preventDefault();
