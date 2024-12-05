@@ -24,39 +24,6 @@ const Login = () => {
     const [resetEmail, setResetEmail] = useState('');
     const [isResettingPassword, setIsResettingPassword] = useState(false);
 
-    // const handleGoogleSignIn = async () => {
-    //     try {
-    //         await signInWithGoogle();
-    //         toast.success('Logged in with Google!');
-    //         navigate('/');
-    //     } catch (error) {
-    //         console.error('Google Sign-In Error:', error);
-    //         toast.error('Google sign-in failed.');
-    //     }
-    // };
-
-    // const handleFacebookSignIn = async () => {
-    //     try {
-    //         await signInWithFacebook();
-    //         toast.success('Logged in with Facebook!');
-    //         navigate('/');
-    //     } catch (error) {
-    //         console.error('Facebook Sign-In Error:', error);
-    //         toast.error('Facebook sign-in failed.');
-    //     }
-    // };
-
-    // const handleGithubSignIn = async () => {
-    //     try {
-    //         await signInWithGithub();
-    //         toast.success('Logged in with GitHub!');
-    //         navigate('/');
-    //     } catch (error) {
-    //         console.error('GitHub Sign-In Error:', error);
-    //         toast.error('GitHub sign-in failed.');
-    //     }
-    // };
-
     const handleGoogleSignIn = async () => {
         try {
             const userCredential = await signInWithGoogle();
