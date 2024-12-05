@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'; // Correct import path
+import { Link } from 'react-router-dom';
 
 const RunningCampaign = () => {
     const [campaigns, setCampaigns] = useState([]);
@@ -28,7 +28,7 @@ const RunningCampaign = () => {
                                 <span className="text-lg font-semibold text-green-500">{`Raised: $${campaign.raisedAmount || 0}`}</span>
                             </div>
                             <div className="mt-4">
-                                <Link to={`/campaign/${campaign._id}`} className="btn btn-primary w-full">See More</Link>
+                                <Link to={`running-campaigns/${campaign._id}`} className="btn btn-primary w-full">See More</Link>
                             </div>
                         </div>
                     </div>

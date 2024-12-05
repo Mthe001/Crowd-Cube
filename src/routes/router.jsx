@@ -44,10 +44,11 @@ const router = createBrowserRouter([
             },
 
             {
-                path: '/campaign/:id',
+                path: '/running-campaigns/:id',
                 element: <CampaignDetails />,
 
             },
+
 
 
             // Private Routes under HomeLayout

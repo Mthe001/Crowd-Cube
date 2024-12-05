@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom'; // Import useParams and useNavigate
-import { FiArrowLeft } from 'react-icons/fi'; // Import the back arrow icon
+import { useParams, useNavigate } from 'react-router-dom';
+import { FiArrowLeft } from 'react-icons/fi';
 
 const CampaignDetails = () => {
-    const { id } = useParams(); // Get the campaign ID from the URL
+    const { id } = useParams(); // Get campaign ID from URL
     const [campaign, setCampaign] = useState(null);
     const navigate = useNavigate(); // Initialize useNavigate
 
     useEffect(() => {
-        // Fetch the details of the selected campaign
-        fetch(`http://localhost:5000/campaigns/${id}`)
+
+        fetch(`http://localhost:5000/running-campaigns/${id}`)
             .then((response) => response.json())
             .then((data) => setCampaign(data))
             .catch((error) => console.error('Error fetching campaign details:', error));
@@ -18,7 +18,7 @@ const CampaignDetails = () => {
     if (!campaign) return <p>Loading...</p>;
 
     return (
-        <div className="max-w-4xl mx-auto p-6 py-10 m-10 border-2 border-gray-400">
+        <div className="max-w-7xl mx-auto p-4 md:p-8 lg:p-12">
             <div className="flex items-center space-x-2 mb-6">
                 <button
                     onClick={() => navigate(-1)} // Go back to the previous page
@@ -27,15 +27,41 @@ const CampaignDetails = () => {
                     Back
                 </button>
             </div>
-            <h1 className="text-3xl font-bold">{campaign.title}</h1>
-            <p className="text-lg mt-4">{campaign.description}</p>
-            <div className="mt-4">
-                <span className="text-lg font-bold">{`Goal: $${campaign.goalAmount}`}</span>
-                <br />
-                <span className="text-lg font-semibold text-green-500">{`Raised: $${campaign.raisedAmount}`}</span>
-            </div>
-            <div className="mt-6">
-                <button className="btn btn-primary">Donate</button>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                {/* Campaign Image */}
+                <div>
+                    <img
+                        src={campaign.imageUrl || 'default_image.jpg'}
+                        alt={campaign.title}
+                        className="w-full h-64 md:h-96 object-cover rounded-lg shadow-lg"
+                    />
+                </div>
+
+                {/* Campaign Details */}
+                <div>
+                    <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-4">
+                        {campaign.title}
+                    </h1>
+                    <p className="text-lg text-gray-600 dark:text-gray-300 mb-4">
+                        {campaign.description}
+                    </p>
+                    <div className="text-lg">
+                        <div className="font-bold">
+                            Goal: <span className="text-gray-800">${campaign.goalAmount}</span>
+                        </div>
+                        <div className="font-semibold text-green-500 mt-2">
+                            Raised: <span>${campaign.raisedAmount}</span>
+                        </div>
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className="mt-6">
+                        <button className="w-full md:w-auto btn btn-primary bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">
+                            Donate
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     );
