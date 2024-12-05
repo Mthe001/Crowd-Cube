@@ -14,7 +14,7 @@ const HomeLayout = () => {
     return (
         <div className={`app-container min-h-screen flex flex-col ${theme === 'dark' ? 'bg-base-900 text-white' : 'bg-white text-gray-900'}`}>
             <Navbar />
-            <main className="flex-grow w-11/12 mx-auto">
+            <main className="flex-grow  w-10/12 mx-auto">
                 <Outlet />
             </main>
             <Footer />
