@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../provider/AuthProvider';  // Assuming you have AuthContext for user info
+import Swal from 'sweetalert2';  // Import SweetAlert2
 
 const MyCampaigns = () => {
     const { user } = useContext(AuthContext);  // Get the logged-in user from context
@@ -43,7 +44,7 @@ const MyCampaigns = () => {
         } else {
             setLoading(false);  // If no user email, stop loading
         }
-    }, [user]);  // This effect runs whenever the `user` object changes
+    }, [user]);
 
     // Handle updating a campaign (could be a modal or redirect to an edit page)
     const handleUpdate = (campaignId) => {
@@ -51,36 +52,50 @@ const MyCampaigns = () => {
         // Implement your update logic here
     };
 
-    // Handle deleting a campaign
+    // Handle deleting a campaign with confirmation
     const handleDelete = async (campaignId) => {
-        try {
-            const response = await fetch(`http://localhost:5000/myCampaigns/${campaignId}`, {
-                method: 'DELETE',
-            });
+        // Show SweetAlert2 confirmation dialog
+        const result = await Swal.fire({
+            title: 'Are you sure?',
+            text: 'You will not be able to revert this!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'Cancel',
+        });
 
-            if (!response.ok) {
-                throw new Error(`Failed to delete campaign. Status: ${response.status}`);
+        if (result.isConfirmed) {
+            try {
+                const response = await fetch(`http://localhost:5000/myCampaigns/${campaignId}`, {
+                    method: 'DELETE',
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Failed to delete campaign. Status: ${response.status}`);
+                }
+
+                // Remove deleted campaign from state
+                setCampaigns(prevCampaigns => prevCampaigns.filter(campaign => campaign._id !== campaignId));
+                Swal.fire('Deleted!', 'Your campaign has been deleted.', 'success');
+            } catch (error) {
+                console.error('Error deleting campaign:', error);
+                Swal.fire('Error!', 'Failed to delete campaign.', 'error');
             }
-
-            // Remove deleted campaign from state
-            setCampaigns(prevCampaigns => prevCampaigns.filter(campaign => campaign._id !== campaignId));
-            alert('Campaign deleted successfully');
-        } catch (error) {
-            console.error('Error deleting campaign:', error);
-            alert('Failed to delete campaign');
         }
     };
 
     if (loading) {
-        return <div>Loading...</div>;  // Show loading state
+        return <div>Loading...</div>;
     }
 
     if (error) {
-        return <div>Error: {error}</div>;  // Show error if there was an issue fetching campaigns
+        return <div>Error: {error}</div>;
     }
 
     return (
-        <div className="max-w-5xl mx-auto px-4 py-8 dark:bg-zinc-800 dark:text-white">
+        <div className="max-w-5xl mx-auto px-4 py-8 m-5 rounded-lg dark:bg-zinc-800 dark:text-white">
             <h1 className="text-4xl font-bold text-center mb-6 text-gray-800 dark:text-gray-200">
                 My Campaigns
             </h1>
@@ -93,58 +108,34 @@ const MyCampaigns = () => {
                     You have no campaigns yet.
                 </div>
             ) : (
-                <div className="overflow-x-auto">
-                    <table className="min-w-full bg-white border border-gray-200 dark:bg-zinc-800 dark:border-gray-700">
-                        <thead>
-                            <tr>
-                                <th className="py-2 px-4 border-b text-left text-gray-800 dark:text-gray-300">Image</th>
-                                <th className="py-2 px-4 border-b text-left text-gray-800 dark:text-gray-300">Title</th>
-                                <th className="py-2 px-4 border-b text-left text-gray-800 dark:text-gray-300">Description</th>
-                                <th className="py-2 px-4 border-b text-left text-gray-800 dark:text-gray-300">Minimum Donation</th>
-                                <th className="py-2 px-4 border-b text-left text-gray-800 dark:text-gray-300">Deadline</th>
-                                <th className="py-2 px-4 border-b text-left text-gray-800 dark:text-gray-300">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {campaigns.map((campaign) => (
-                                <tr key={campaign._id} className="hover:bg-gray-100 dark:hover:bg-gray-500">
-                                    <td className="py-2 px-4 border-b">
-                                        {campaign.imageUrl ? (
-                                            <img
-                                                src={campaign.imageUrl}  // Display the campaign's image
-                                                alt={campaign.title}
-                                                className="w-24 h-24 object-cover rounded-md mx-auto"
-                                            />
-                                        ) : (
-                                            <span>No Image</span>  // Fallback text if no image is available
-                                        )}
-                                    </td>
-                                    <td className="py-2 px-4 border-b">{campaign.title}</td>
-                                    <td className="py-2 px-4 border-b">{campaign.description.slice(0, 100)}...</td>
-                                    <td className="py-2 px-4 border-b">${campaign.minimumDonation}</td>
-                                    <td className="py-2 px-4 border-b">
-                                        {campaign.deadline
-                                            ? new Date(campaign.deadline).toLocaleDateString()
-                                            : 'No deadline set'}
-                                    </td>
-                                    <td className="py-2 px-4 border-b text-center">
-                                        <button
-                                            onClick={() => handleUpdate(campaign._id)}
-                                            className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2 hover:bg-blue-600"
-                                        >
-                                            Update
-                                        </button>
-                                        <button
-                                            onClick={() => handleDelete(campaign._id)}
-                                            className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
-                                        >
-                                            Delete
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {campaigns.map((campaign, index) => (
+                        <div key={campaign._id} className="bg-white dark:bg-zinc-700 rounded-lg shadow-lg p-6">
+                            <div className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">
+                                <span className="text-gray-500 dark:text-gray-300">#{index + 1}</span> {campaign.title}
+                            </div>
+                            <div className="text-gray-800 dark:text-gray-300 mb-2">
+                                <strong>Minimum Donation:</strong> ${campaign.minimumDonation}
+                            </div>
+                            <div className="text-gray-800 dark:text-gray-300 mb-4">
+                                <strong>Deadline:</strong> {campaign.deadline ? new Date(campaign.deadline).toLocaleDateString() : 'No deadline set'}
+                            </div>
+                            <div className="flex justify-between mt-4">
+                                <button
+                                    onClick={() => handleUpdate(campaign._id)}
+                                    className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                                >
+                                    Update
+                                </button>
+                                <button
+                                    onClick={() => handleDelete(campaign._id)}
+                                    className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
+                                >
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             )}
         </div>
