@@ -16,6 +16,7 @@ import UpdateProfile from '../pages/UpdatePorfile';
 import Home from '../components/Home';
 import CampaignDetails from '../card/CampaignDetails';
 import AllCampaignDetails from '../card/AllCampaignDetails';
+import UpdateMyCampaign from '../components/UpdateMyCampaign';
 
 
 const router = createBrowserRouter([
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
             {
                 path: '/campaigns/:id',
                 element: <AllCampaignDetails />,
+            },
+            {
+                path: '/updateCampaign/:id',
+                element: <UpdateMyCampaign />,
             },
 
 

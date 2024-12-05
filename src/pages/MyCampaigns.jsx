@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../provider/AuthProvider';  // Assuming you have AuthContext for user info
 import Swal from 'sweetalert2';  // Import SweetAlert2
+import { Link } from 'react-router-dom';  // Import Link for navigation
 
 const MyCampaigns = () => {
     const { user } = useContext(AuthContext);  // Get the logged-in user from context
@@ -32,7 +33,7 @@ const MyCampaigns = () => {
                 setCampaigns(data);  // Update campaigns state
             } catch (err) {
                 console.error('Error fetching campaigns:', err);
-                setError(err.message);  // Update error state
+                setError('Failed to load your campaigns. Please try again later.');  // Update error state with more user-friendly message
             } finally {
                 setLoading(false);
             }
@@ -45,12 +46,6 @@ const MyCampaigns = () => {
             setLoading(false);  // If no user email, stop loading
         }
     }, [user]);
-
-    // Handle updating a campaign (could be a modal or redirect to an edit page)
-    const handleUpdate = (campaignId) => {
-        console.log("Update campaign with ID:", campaignId);
-        // Implement your update logic here
-    };
 
     // Handle deleting a campaign with confirmation
     const handleDelete = async (campaignId) => {
@@ -86,12 +81,22 @@ const MyCampaigns = () => {
         }
     };
 
+    // If loading, show loading state
     if (loading) {
-        return <div>Loading...</div>;
+        return (
+            <div className="text-center text-gray-600 dark:text-gray-400">
+                <p>Loading...</p>
+            </div>
+        );
     }
 
+    // If there was an error, display the error message
     if (error) {
-        return <div>Error: {error}</div>;
+        return (
+            <div className="text-center text-red-500 dark:text-red-400">
+                <p>{error}</p>
+            </div>
+        );
     }
 
     return (
@@ -121,12 +126,12 @@ const MyCampaigns = () => {
                                 <strong>Deadline:</strong> {campaign.deadline ? new Date(campaign.deadline).toLocaleDateString() : 'No deadline set'}
                             </div>
                             <div className="flex justify-between mt-4">
-                                <button
-                                    onClick={() => handleUpdate(campaign._id)}
+                                <Link
+                                    to={`/updateCampaign/${campaign._id}`}  // Set the link to the edit page with campaign ID
                                     className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
                                 >
-                                    Update
-                                </button>
+                                    Edit
+                                </Link>
                                 <button
                                     onClick={() => handleDelete(campaign._id)}
                                     className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
