@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import { useLoaderData } from 'react-router-dom';
 
 const AllCampaigns = () => {
@@ -16,13 +17,18 @@ const AllCampaigns = () => {
                     />
                     <div className="p-4">
                         <h3 className="text-xl font-semibold">{campaign.title}</h3>
-                        <p className="text-sm text-gray-500">{campaign.description}</p>
                         <div className="mt-4 flex justify-between items-center">
                             <span className="text-lg font-bold">{`Donation: $${campaign.minimumDonation}`}</span>
                             <span className="text-lg font-semibold text-blue-500">{`Deadline: ${campaign.deadline ? new Date(campaign.deadline).toLocaleDateString() : 'No deadline set'}`}</span>
                         </div>
                         <div className="mt-4">
-                            <button className="btn btn-primary w-full">See More</button>
+                            {/* Using Link to navigate to the details page */}
+                            <Link
+                                to={`/campaigns/${campaign._id}`}
+                                className="btn btn-primary w-full text-center"
+                            >
+                                See More
+                            </Link>
                         </div>
                     </div>
                 </div>
