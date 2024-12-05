@@ -1,23 +1,23 @@
+
 import React, { useContext } from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
 import { AuthContext } from '../provider/AuthProvider';
+import { Navigate, useLocation } from 'react-router-dom';
 import Loading from '../pages/Loading';
 
-const PrivateRoutes = () => {
+const PrivateRoutes = ({ children }) => {
     const { user, loading } = useContext(AuthContext);
-
+    const location = useLocation();
 
     if (loading) {
         return <Loading />;
     }
 
-
-    if (!user) {
-        return <Navigate to="/auth/login" replace />;
+    if (user && user.email) {
+        return children;  // If user is authenticated, render the children components
     }
 
-
-    return <Outlet />;
+    // If not authenticated, redirect to login and preserve the location they tried to access
+    return <Navigate to="/auth/login" state={{ from: location }} replace />;
 };
 
 export default PrivateRoutes;

@@ -1,106 +1,69 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
+import React from 'react';
 
-const AddCampaign = ({ user }) => {
-    const [formData, setFormData] = useState({
-        imageUrl: '',
-        title: '',
-        type: 'personal issue', // Default value for the dropdown
-        description: '',
-        minDonation: '',
-        deadline: '',
-    });
-
-    const navigate = useNavigate();
-
-    // Handle form field changes
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-    };
-
-    // Handle form submission
+const AddCampaign = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        // Add user details to the formData
-        const campaignData = {
-            ...formData,
-            userEmail: user.email,
-            userName: user.name,
+        const form = e.target;
+        const campaign = {
+            imageUrl: form.imageUrl.value,
+            title: form.title.value,
+            type: form.type.value,
+            description: form.description.value,
+            minimumDonation: form.minimumDonation.value,
+            deadline: form.deadline.value,
+            userEmail: form.userEmail.value,
+            userName: form.userName.value,
         };
 
-        // POST the campaign data to the server
-        fetch('http://localhost:5000/campaigns', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(campaignData),
-        })
-            .then((response) => {
-                if (response.ok) {
-                    Swal.fire('Success', 'Campaign added successfully!', 'success');
-                    navigate('/my-campaigns'); // Redirect to My Campaigns page
-                } else {
-                    Swal.fire('Error', 'Failed to add campaign. Please try again.', 'error');
-                }
-            })
-            .catch((error) => {
-                console.error('Error adding campaign:', error);
-                Swal.fire('Error', 'Something went wrong. Please try again later.', 'error');
-            });
+        console.log("Campaign Data:", campaign);
+        form.reset(); // Reset form after submission
+        alert('Form submitted successfully!');
     };
 
     return (
-        <div className="max-w-4xl mx-auto p-6 bg-gray-100 dark:bg-zinc-900 rounded-lg">
-            <h1 className="text-3xl font-bold text-center mb-6 dark:text-white">
-                Add New Campaign
-            </h1>
-            <form onSubmit={handleSubmit} className="space-y-4">
-                {/* Image/Thumbnail */}
-                <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">
-                        Image URL
-                    </label>
+        <div className="max-w-5xl mx-auto px-4 py-8">
+            <h1 className="text-4xl font-bold text-center mb-6 text-gray-800">Add New Campaign</h1>
+            <p className="text-center text-gray-600 mb-10">
+                Fill out the form below to add a new campaign to our platform. Provide accurate details to attract supporters!
+            </p>
+
+            <form
+                onSubmit={handleSubmit}
+                className="bg-gray-100 shadow-lg rounded-lg p-8 grid w-11/12 mx-auto gap-6 md:grid-cols-2"
+            >
+                {/* Image URL */}
+                <div className="flex flex-col">
+                    <label className="label mb-2 font-medium text-gray-700">Image/Thumbnail URL</label>
                     <input
                         type="url"
                         name="imageUrl"
-                        value={formData.imageUrl}
-                        onChange={handleChange}
-                        className="w-full mt-1 p-2 border rounded"
                         placeholder="Enter image URL"
+                        className="input input-bordered w-full"
                         required
                     />
                 </div>
 
                 {/* Campaign Title */}
-                <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">
-                        Campaign Title
-                    </label>
+                <div className="flex flex-col">
+                    <label className="label mb-2 font-medium text-gray-700">Campaign Title</label>
                     <input
                         type="text"
                         name="title"
-                        value={formData.title}
-                        onChange={handleChange}
-                        className="w-full mt-1 p-2 border rounded"
                         placeholder="Enter campaign title"
+                        className="input input-bordered w-full"
                         required
                     />
                 </div>
 
                 {/* Campaign Type */}
-                <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">
-                        Campaign Type
-                    </label>
+                <div className="flex flex-col">
+                    <label className="label mb-2 font-medium text-gray-700">Campaign Type</label>
                     <select
                         name="type"
-                        value={formData.type}
-                        onChange={handleChange}
-                        className="w-full mt-1 p-2 border rounded"
+                        className="select select-bordered w-full"
                         required
                     >
+                        <option value="">Select Type</option>
                         <option value="personal issue">Personal Issue</option>
                         <option value="startup">Startup</option>
                         <option value="business">Business</option>
@@ -108,84 +71,68 @@ const AddCampaign = ({ user }) => {
                     </select>
                 </div>
 
-                {/* Description */}
-                <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">
-                        Description
-                    </label>
-                    <textarea
-                        name="description"
-                        value={formData.description}
-                        onChange={handleChange}
-                        className="w-full mt-1 p-2 border rounded"
-                        rows="4"
-                        placeholder="Enter campaign description"
-                        required
-                    />
-                </div>
-
                 {/* Minimum Donation */}
-                <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">
-                        Minimum Donation Amount ($)
-                    </label>
+                <div className="flex flex-col">
+                    <label className="label mb-2 font-medium text-gray-700">Minimum Donation ($)</label>
                     <input
                         type="number"
-                        name="minDonation"
-                        value={formData.minDonation}
-                        onChange={handleChange}
-                        className="w-full mt-1 p-2 border rounded"
+                        name="minimumDonation"
                         placeholder="Enter minimum donation amount"
+                        className="input input-bordered w-full"
                         required
                     />
                 </div>
 
                 {/* Deadline */}
-                <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">
-                        Deadline
-                    </label>
+                <div className="flex flex-col">
+                    <label className="label mb-2 font-medium text-gray-700">Deadline</label>
                     <input
                         type="date"
                         name="deadline"
-                        value={formData.deadline}
-                        onChange={handleChange}
-                        className="w-full mt-1 p-2 border rounded"
+                        className="input input-bordered w-full"
                         required
                     />
                 </div>
 
-                {/* User Email (Read Only) */}
-                <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">
-                        User Email
-                    </label>
+                {/* User Email */}
+                <div className="flex flex-col">
+                    <label className="label mb-2 font-medium text-gray-700">User Email</label>
                     <input
                         type="email"
-                        value={user.email}
-                        className="w-full mt-1 p-2 border rounded bg-gray-100"
+                        name="userEmail"
+                        defaultValue="user@example.com" // Replace with actual user email
+                        className="input input-bordered w-full"
                         readOnly
                     />
                 </div>
 
-                {/* User Name (Read Only) */}
-                <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">
-                        User Name
-                    </label>
+                {/* User Name */}
+                <div className="flex flex-col">
+                    <label className="label mb-2 font-medium text-gray-700">User Name</label>
                     <input
                         type="text"
-                        value={user.name}
-                        className="w-full mt-1 p-2 border rounded bg-gray-100"
+                        name="userName"
+                        defaultValue="John Doe" // Replace with actual user name
+                        className="input input-bordered w-full"
                         readOnly
                     />
                 </div>
 
-                {/* Add Button */}
-                <div className="text-center">
-                    <button
-                        type="submit"
-                        className="btn bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+                {/* Description */}
+                <div className="flex flex-col md:col-span-2">
+                    <label className="label mb-2 font-medium text-gray-700">Description</label>
+                    <textarea
+                        name="description"
+                        placeholder="Enter detailed campaign description"
+                        className="textarea textarea-bordered w-full"
+                        rows="4"
+                        required
+                    ></textarea>
+                </div>
+
+                {/* Submit Button */}
+                <div className="md:col-span-2 text-center">
+                    <button type="submit" className="btn btn-primary w-full md:w-1/2">
                         Add Campaign
                     </button>
                 </div>
