@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { AuthContext } from '../provider/AuthProvider';
 import { useNavigate, Link } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
@@ -9,17 +9,8 @@ const Register = () => {
     const { signUpWithEmailPassword, updateUserProfile } = useContext(AuthContext);
     const navigate = useNavigate();
 
-
-    const [name, setName] = useState('');
-    const [photoUrl, setPhotoUrl] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-
-
-    const [showPassword, setShowPassword] = useState(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
+    const [showPassword, setShowPassword] = React.useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
 
     const validatePassword = (password) => {
         const minLength = 8;
@@ -46,16 +37,19 @@ const Register = () => {
         return null;
     };
 
-
-    const handleRegister = async (e) => {
+    const handleRegister = (e) => {
         e.preventDefault();
 
+        const name = e.target.name.value;
+        const photoUrl = e.target.photoUrl.value;
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+        const confirmPassword = e.target.confirmPassword.value;
 
         if (password !== confirmPassword) {
             toast.error('Passwords do not match!');
             return;
         }
-
 
         const passwordError = validatePassword(password);
         if (passwordError) {
@@ -63,24 +57,50 @@ const Register = () => {
             return;
         }
 
-        try {
+        // Registration process with photoUrl and name
+        signUpWithEmailPassword(email, password)
+            .then((result) => {
+                const user = result.user;
 
-            const userCredential = await signUpWithEmailPassword(email, password);
+                const createdAt = result?.user?.metadata?.creationTime;
 
+                console.log(result.user);
 
-            await updateUserProfile(name, photoUrl);
+                const newUser = { name, email, photoUrl, createdAt }
+                //save user in database
 
-            toast.success('Registration successful!');
-            navigate('/');
-        } catch (error) {
-            console.error('Registration Error:', error);
-            toast.error(error.message || 'Registration failed!');
-        }
+                fetch('http://localhost:5000/users', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(newUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log('user created to db', data)
+                    })
+
+                // Update user profile with name and photo URL
+                updateUserProfile(name, photoUrl)
+                    .then(() => {
+                        console.log('User profile updated successfully');
+                        toast.success('Registration successful!');
+                        navigate('/');
+                    })
+                    .catch((error) => {
+                        console.error('Error updating profile:', error);
+                        toast.error('Failed to set profile!');
+                    });
+            })
+            .catch((error) => {
+                console.error('Registration Error:', error);
+                toast.error(error.message || 'Registration failed!');
+            });
     };
 
     return (
         <div className="max-w-md mx-auto mt-10 p-8 border rounded-lg shadow-lg bg-white dark:bg-black">
-            {/* Back Button */}
             <button
                 onClick={() => navigate('/')}
                 className="flex items-center mb-4 text-gray-600 hover:text-black dark:hover:text-white"
@@ -92,20 +112,17 @@ const Register = () => {
             <ToastContainer />
 
             <form onSubmit={handleRegister} className="space-y-4">
-                {/* Name Field */}
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Name</span>
                     </label>
                     <input
                         type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        name="name"
                         className="input input-bordered w-full bg-zinc-200 dark:bg-black"
                         required
                     />
                 </div>
-
 
                 <div className="form-control">
                     <label className="label">
@@ -113,26 +130,22 @@ const Register = () => {
                     </label>
                     <input
                         type="url"
-                        value={photoUrl}
-                        onChange={(e) => setPhotoUrl(e.target.value)}
+                        name="photoUrl"
                         className="input input-bordered w-full bg-zinc-200 dark:bg-black"
                     />
                 </div>
 
-                {/* Email Field */}
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Email</span>
                     </label>
                     <input
                         type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        name="email"
                         className="input input-bordered w-full bg-zinc-200 dark:bg-black"
                         required
                     />
                 </div>
-
 
                 <div className="form-control relative">
                     <label className="label">
@@ -140,8 +153,7 @@ const Register = () => {
                     </label>
                     <input
                         type={showPassword ? 'text' : 'password'}
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        name="password"
                         className="input input-bordered w-full bg-zinc-200 dark:bg-black"
                         required
                     />
@@ -154,15 +166,13 @@ const Register = () => {
                     </button>
                 </div>
 
-
                 <div className="form-control relative">
                     <label className="label">
                         <span className="label-text">Confirm Password</span>
                     </label>
                     <input
                         type={showConfirmPassword ? 'text' : 'password'}
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        name="confirmPassword"
                         className="input input-bordered w-full bg-zinc-200 dark:bg-black"
                         required
                     />
@@ -175,10 +185,8 @@ const Register = () => {
                     </button>
                 </div>
 
-
                 <button type="submit" className="btn btn-primary w-full mt-4">Sign Up</button>
             </form>
-
 
             <p className="text-center mt-6">
                 Already have an account?{' '}
