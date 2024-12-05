@@ -6,7 +6,7 @@ const AllCampaigns = () => {
     const campaigns = useLoaderData();
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-6 dark:bg-zinc-800 w-11/12 mx-auto rounded-lg">
+        <div className="grid grid-cols-1 md:grid-cols-2 m-10 lg:grid-cols-3 gap-8 p-6 dark:bg-zinc-800 w-11/12 mx-auto rounded-lg">
             {campaigns.map(campaign => (
                 <div key={campaign._id} className="card bg-gray-200 dark:bg-zinc-950 shadow-lg p-3 rounded-lg overflow-hidden">
                     <img
