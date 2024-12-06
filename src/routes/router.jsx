@@ -17,6 +17,7 @@ import Home from '../components/Home';
 import CampaignDetails from '../card/CampaignDetails';
 import AllCampaignDetails from '../card/AllCampaignDetails';
 import UpdateMyCampaign from '../components/UpdateMyCampaign';
+import Faq from '../components/Faq';
 
 
 const router = createBrowserRouter([
@@ -58,7 +59,10 @@ const router = createBrowserRouter([
                 path: '/updateCampaign/:id',
                 element: <UpdateMyCampaign />,
             },
-
+            {
+                path: '/faq',
+                element: <Faq />,
+            },
 
             // Private Routes under HomeLayout
             {
