@@ -1,17 +1,17 @@
 import React from 'react';
 import { createBrowserRouter } from 'react-router';
 
-import ErrorPage from '../pages/ErrorPage'; // Import the ErrorPage component
+import ErrorPage from '../pages/ErrorPage';
 import Login from '../pages/Login';
 import Profile from '../pages/Profile';
 import Register from '../pages/Register';
-import AddCampaign from '../pages/AddCampaign'; // Import AddCampaign component
-import MyCampaigns from '../pages/MyCampaigns'; // Import MyCampaigns component
-import MyDonations from '../pages/MyDonations'; // Import MyDonations component
-import PrivateRoutes from './PrivateRoutes'; // Wrapper for private routes
+import AddCampaign from '../pages/AddCampaign';
+import MyCampaigns from '../pages/MyCampaigns';
+import MyDonations from '../pages/MyDonations';
+import PrivateRoutes from './PrivateRoutes';
 import AllCampaigns from '../pages/AllCampaigns';
-import HomeLayout from '../layouts/HomeLayout'; // Import the HomeLayout
-import AuthLayout from '../layouts/AuthLayout'; // Import the AuthLayout
+import HomeLayout from '../layouts/HomeLayout';
+import AuthLayout from '../layouts/AuthLayout';
 import UpdateProfile from '../pages/UpdatePorfile';
 import Home from '../components/Home';
 import CampaignDetails from '../card/CampaignDetails';
@@ -28,7 +28,7 @@ const router = createBrowserRouter([
 
     {
         path: "/",
-        element: <HomeLayout />, // HomeLayout for main content
+        element: <HomeLayout />,
         children: [
             {
                 path: '/',
@@ -74,7 +74,10 @@ const router = createBrowserRouter([
                 path: '/privacy',
                 element: <PrivacyPolicy />,
             },
-
+            {
+                path: '/copyright-warning',
+                element: <CopyRight />,
+            },
 
             {
                 path: "add-campaign",
@@ -104,10 +107,10 @@ const router = createBrowserRouter([
         ],
     },
 
-    // Public Routes with AuthLayout (Login, Register)
+
     {
         path: "/auth",
-        element: <AuthLayout />, // AuthLayout for login/register
+        element: <AuthLayout />,
         children: [
             {
                 path: "/auth/login",
@@ -121,7 +124,7 @@ const router = createBrowserRouter([
     },
 
 
-    // Catch-All Route for 404
+
     {
         path: "*",
         element: <ErrorPage />,
