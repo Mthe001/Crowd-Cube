@@ -25,7 +25,7 @@ import PrivacyPolicy from '../pages/PrivacyPolicy';
 const router = createBrowserRouter([
 
 
-    // Main Routes with HomeLayout (Profile, Settings, Campaigns)
+
     {
         path: "/",
         element: <HomeLayout />, // HomeLayout for main content
