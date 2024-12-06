@@ -1,5 +1,6 @@
 import React from 'react';
-import { Typewriter } from 'react-simple-typewriter';  // Import the Typewriter component
+import { Link } from 'react-router';
+import { Typewriter } from 'react-simple-typewriter';
 
 const About = () => {
     return (
@@ -93,11 +94,13 @@ const About = () => {
 
             {/* Call-to-Action */}
             <div className="text-center mt-12">
-                <button className="bg-zinc-700 hover:bg-zinc-500 text-white py-3 px-8 rounded-full shadow-md transform hover:scale-105 transition duration-300">
+                <Link to='/campaigns' className=' bg-zinc-700 hover:bg-zinc-500 text-white py-3 px-8 rounded-full shadow-md transform hover:scale-105 transition duration-300'>
                     Explore Campaigns
-                </button>
+                </Link>
+
+
             </div>
-        </div>
+        </div >
     );
 };
 
