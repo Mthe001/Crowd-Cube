@@ -22,7 +22,6 @@ const RunningCampaign = () => {
                         <img src={campaign.imageUrl || 'default_image.jpg'} alt={campaign.title} className="w-full h-48 object-cover rounded-lg" />
                         <div className="p-4">
                             <h3 className="text-xl font-semibold">{campaign.title}</h3>
-                            <p className="text-sm text-gray-500">{campaign.description}</p>
                             <div className="mt-4 flex justify-between items-center">
                                 <span className="text-lg font-bold">{`Goal: $${campaign.goalAmount}`}</span>
                                 <span className="text-lg font-semibold text-green-500">{`Raised: $${campaign.raisedAmount || 0}`}</span>
