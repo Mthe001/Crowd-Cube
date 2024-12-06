@@ -21,7 +21,7 @@ const MyDonations = () => {
             console.log(`Fetching donations for: ${userEmail}`);
 
             try {
-                const regularDonationsResponse = await fetch(`http://localhost:5000/donations/user/${userEmail}`);
+                const regularDonationsResponse = await fetch(`https://assignment-10-server-kappa-steel.vercel.app/donations/user/${userEmail}`);
                 if (!regularDonationsResponse.ok) {
                     throw new Error('Failed to fetch regular donations');
                 }
@@ -29,7 +29,7 @@ const MyDonations = () => {
 
                 let runningDonations = [];
                 try {
-                    const runningDonationsResponse = await fetch(`http://localhost:5000/running-donations/user/${userEmail}`);
+                    const runningDonationsResponse = await fetch(`https://assignment-10-server-kappa-steel.vercel.app/running-donations/user/${userEmail}`);
                     if (runningDonationsResponse.ok) {
                         runningDonations = await runningDonationsResponse.json();
                     } else {

@@ -69,7 +69,7 @@ const Register = () => {
                 const newUser = { name, email, photoUrl, createdAt }
                 //save user in database
 
-                fetch('http://localhost:5000/users', {
+                fetch('https://assignment-10-server-kappa-steel.vercel.app/users', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'

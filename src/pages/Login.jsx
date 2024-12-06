@@ -38,7 +38,7 @@ const Login = () => {
             };
 
             // Save user data to the database
-            await fetch('http://localhost:5000/users', {
+            await fetch('https://assignment-10-server-kappa-steel.vercel.app/users', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -67,7 +67,7 @@ const Login = () => {
                 photoURL: user.photoURL,
             };
 
-            await fetch('http://localhost:5000/users', {
+            await fetch('https://assignment-10-server-kappa-steel.vercel.app/users', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -95,7 +95,7 @@ const Login = () => {
                 photoURL: user.photoURL,
             };
 
-            await fetch('http://localhost:5000/users', {
+            await fetch('https://assignment-10-server-kappa-steel.vercel.app/users', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

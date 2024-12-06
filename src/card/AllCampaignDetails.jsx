@@ -17,7 +17,7 @@ const AllCampaignDetails = () => {
 
     useEffect(() => {
         const fetchCampaignDetails = async () => {
-            const url = `http://localhost:5000/campaigns/${id}`;
+            const url = `https://assignment-10-server-kappa-steel.vercel.app/campaigns/${id}`;
 
             try {
                 const response = await fetch(url);
@@ -90,7 +90,7 @@ const AllCampaignDetails = () => {
         };
 
         try {
-            const response = await fetch('http://localhost:5000/donations', {
+            const response = await fetch('https://assignment-10-server-kappa-steel.vercel.app/donations', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(donationData),

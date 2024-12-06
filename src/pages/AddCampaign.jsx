@@ -36,7 +36,7 @@ const AddCampaign = () => {
 
         console.log('Campaign Data to be sent:', campaign);
 
-        fetch('http://localhost:5000/campaigns', {
+        fetch('https://assignment-10-server-kappa-steel.vercel.app/campaigns', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

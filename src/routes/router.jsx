@@ -46,7 +46,7 @@ const router = createBrowserRouter([
             {
                 path: "campaigns",
                 element: <AllCampaigns />,
-                loader: () => fetch('http://localhost:5000/campaigns')
+                loader: () => fetch('https://assignment-10-server-kappa-steel.vercel.app/campaigns')
             },
 
             {

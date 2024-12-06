@@ -12,7 +12,7 @@ const UpdateMyCampaign = () => {
     useEffect(() => {
         const fetchCampaignData = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/campaigns/${id}`);
+                const response = await fetch(`https://assignment-10-server-kappa-steel.vercel.app/campaigns/${id}`);
 
                 if (!response.ok) {
                     throw new Error(`Failed to fetch campaign. Status: ${response.status}`);
@@ -64,7 +64,7 @@ const UpdateMyCampaign = () => {
         };
 
         try {
-            const response = await fetch(`http://localhost:5000/campaigns/${id}`, {
+            const response = await fetch(`https://assignment-10-server-kappa-steel.vercel.app/campaigns/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

@@ -21,7 +21,7 @@ const MyCampaigns = () => {
             try {
                 console.log('Fetching campaigns for userEmail:', user.email);
 
-                const response = await fetch(`http://localhost:5000/my-campaigns/${user.email}`);
+                const response = await fetch(`https://assignment-10-server-kappa-steel.vercel.app/my-campaigns/${user.email}`);
 
                 if (!response.ok) {
                     throw new Error(`Failed to fetch campaigns. Status: ${response.status}`);
@@ -69,7 +69,7 @@ const MyCampaigns = () => {
         if (result.isConfirmed) {
             try {
                 // Send DELETE request to backend
-                const response = await fetch(`http://localhost:5000/myCampaigns/${campaignId}`, {
+                const response = await fetch(`https://assignment-10-server-kappa-steel.vercel.app/myCampaigns/${campaignId}`, {
                     method: 'DELETE',
                 });
 

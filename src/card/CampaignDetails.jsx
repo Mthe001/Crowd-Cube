@@ -11,7 +11,7 @@ const CampaignDetails = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch(`http://localhost:5000/running-campaigns/${id}`)
+        fetch(`https://assignment-10-server-kappa-steel.vercel.app/running-campaigns/${id}`)
             .then((response) => response.json())
             .then((data) => setCampaign(data))
             .catch((error) => console.error('Error fetching campaign details:', error));
@@ -67,7 +67,7 @@ const CampaignDetails = () => {
 
             try {
 
-                const response = await fetch('http://localhost:5000/running-donations', {
+                const response = await fetch('https://assignment-10-server-kappa-steel.vercel.app/running-donations', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -85,7 +85,7 @@ const CampaignDetails = () => {
                 }
 
 
-                const campaignUpdateResponse = await fetch(`http://localhost:5000/running-campaigns/${id}/donate`, {
+                const campaignUpdateResponse = await fetch(`https://assignment-10-server-kappa-steel.vercel.app/running-campaigns/${id}/donate`, {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json',
