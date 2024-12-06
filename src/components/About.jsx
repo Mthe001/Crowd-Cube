@@ -1,4 +1,5 @@
 import React from 'react';
+import { Typewriter } from 'react-simple-typewriter';  // Import the Typewriter component
 
 const About = () => {
     return (
@@ -6,7 +7,15 @@ const About = () => {
             {/* Hero Section */}
             <div className="text-center mb-16">
                 <h1 className="text-4xl sm:text-5xl font-bold text-gray-800 dark:text-white mb-4">
-                    About Our Crowdfunding Platform
+                    <Typewriter
+                        words={['About Our Crowdfunding Platform']}
+                        loop={2}
+                        cursor
+                        cursorStyle="_"
+                        typeSpeed={100}
+                        deleteSpeed={50}
+                        delaySpeed={1000}
+                    />
                 </h1>
                 <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
                     Empowering dreams and ideas, one contribution at a time.
@@ -70,7 +79,7 @@ const About = () => {
                     </p>
                 </div>
 
-
+                {/* Card 6 */}
                 <div className="bg-white dark:bg-zinc-800 rounded-lg shadow-lg p-6 hover:shadow-xl transform hover:scale-105 transition duration-300">
                     <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">
                         Technology Advancements
