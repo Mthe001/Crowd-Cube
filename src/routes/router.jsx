@@ -20,6 +20,7 @@ import UpdateMyCampaign from '../components/UpdateMyCampaign';
 import Faq from '../components/Faq';
 import TermsOfCondition from '../pages/TermsOfCondition';
 import PrivacyPolicy from '../pages/PrivacyPolicy';
+import CopyRight from '../pages/CopyRight';
 
 
 const router = createBrowserRouter([
