@@ -89,6 +89,7 @@ const UpdateMyCampaign = () => {
             console.error('Error updating campaign:', error);
             Swal.fire('Error!', 'Failed to update campaign.', 'error');
         }
+
     };
 
 
