@@ -18,6 +18,7 @@ import CampaignDetails from '../card/CampaignDetails';
 import AllCampaignDetails from '../card/AllCampaignDetails';
 import UpdateMyCampaign from '../components/UpdateMyCampaign';
 import Faq from '../components/Faq';
+import TermsOfCondition from '../pages/TermsOfCondition';
 
 
 const router = createBrowserRouter([
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
             {
                 path: '/faq',
                 element: <Faq />,
+            },
+            {
+                path: '/terms',
+                element: <TermsOfCondition />,
             },
 
             // Private Routes under HomeLayout
