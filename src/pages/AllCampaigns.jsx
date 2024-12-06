@@ -16,7 +16,7 @@ const AllCampaigns = () => {
 
 
     const sortedCampaigns = [...campaigns].sort((a, b) => {
-        // Compare based on minimumDonation field
+
         if (isAscending) {
             return a.minimumDonation - b.minimumDonation;
         } else {
