@@ -21,7 +21,7 @@ const MyCampaigns = () => {
             try {
                 console.log('Fetching campaigns for userEmail:', user.email);
 
-                const response = await fetch(`http://localhost:5000/myCampaigns/${user.email}`);
+                const response = await fetch(`http://localhost:5000/my-campaigns/${user.email}`);
 
                 if (!response.ok) {
                     throw new Error(`Failed to fetch campaigns. Status: ${response.status}`);
@@ -30,7 +30,11 @@ const MyCampaigns = () => {
                 const data = await response.json();
                 console.log('Campaigns fetched successfully:', data);
 
-                setCampaigns(data);  // Update campaigns state
+                if (Array.isArray(data) && data.length > 0) {
+                    setCampaigns(data);  // Update campaigns state if the response is valid
+                } else {
+                    setCampaigns([]);  // Set empty array if no campaigns are found
+                }
             } catch (err) {
                 console.error('Error fetching campaigns:', err);
                 setError('Failed to load your campaigns. Please try again later.');  // Update error state with more user-friendly message
@@ -46,6 +50,7 @@ const MyCampaigns = () => {
             setLoading(false);  // If no user email, stop loading
         }
     }, [user]);
+
 
     // Handle deleting a campaign with confirmation
     const handleDelete = async (campaignId) => {
