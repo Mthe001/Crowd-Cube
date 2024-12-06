@@ -19,6 +19,13 @@ const CampaignDetails = () => {
 
     if (!campaign) return <p>Loading...</p>;
 
+    // Function to format the deadline correctly
+    const formatDeadline = (deadline) => {
+        const [day, month, year] = deadline.split('/'); // Split by '/'
+        const date = new Date(year, month - 1, day); // Date expects month to be 0-indexed
+        return date.toLocaleDateString(); // Format the date in a human-readable format
+    };
+
     // Function to handle donation
     const handleDonate = async () => {
         // Ask for the donation amount
@@ -138,6 +145,9 @@ const CampaignDetails = () => {
                         </div>
                         <div className="font-semibold text-green-500 mt-2">
                             Raised: <span>${campaign.raisedAmount}</span>
+                        </div>
+                        <div className="font-semibold text-gray-700 dark:text-zinc-300 mt-2">
+                            Deadline: <span>{formatDeadline(campaign.deadline)}</span>
                         </div>
                     </div>
 
