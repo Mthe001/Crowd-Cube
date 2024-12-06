@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../provider/AuthProvider';  // Import useAuth hook from AuthContext
+import { Fade } from 'react-awesome-reveal';  // Import Fade animation from react-awesome-reveal
 
 const MyDonations = () => {
     const { user } = useAuth();  // Get logged-in user data (including email) from AuthContext
@@ -8,77 +9,106 @@ const MyDonations = () => {
     const [error, setError] = useState(null);        // Error state
 
     useEffect(() => {
-        // Function to fetch donations data for the specific user
         const fetchDonations = async () => {
+            // Check if the user and user email exist
             if (!user || !user.email) {
                 setError('No user email found');
                 setLoading(false);
                 return;
             }
 
-            console.log(`Fetching donations for: ${user.email}`);  // Debugging line
+            const userEmail = user.email;
+            console.log(`Fetching donations for: ${userEmail}`);
 
             try {
-                const response = await fetch(`http://localhost:5000/donations/${user.email}`);
-                console.log(response);  // Log the response object to see if it's successful
-                if (!response.ok) {
-                    throw new Error('Failed to fetch donations');
+                const regularDonationsResponse = await fetch(`http://localhost:5000/donations/user/${userEmail}`);
+                if (!regularDonationsResponse.ok) {
+                    throw new Error('Failed to fetch regular donations');
+                }
+                const regularDonations = await regularDonationsResponse.json();
+
+                let runningDonations = [];
+                try {
+                    const runningDonationsResponse = await fetch(`http://localhost:5000/running-donations/user/${userEmail}`);
+                    if (runningDonationsResponse.ok) {
+                        runningDonations = await runningDonationsResponse.json();
+                    } else {
+                        console.warn('Running donations API not available');
+                    }
+                } catch (err) {
+                    console.warn('Error fetching running donations:', err);
                 }
 
-                const data = await response.json();
-                console.log(data);  // Log the fetched data
-                setDonations(data);
+                // Combine both regular and running donations
+                const allDonations = [...regularDonations, ...runningDonations];
+                setDonations(allDonations);
+
             } catch (err) {
-                console.error(err);
-                setError('Failed to load donations. Please try again later.');
+                console.error('Error fetching donations:', err);
+                setError('You haven’t donated yet.');
             } finally {
                 setLoading(false);
             }
         };
 
+        if (user && user.email) {
+            fetchDonations();
+        } else {
+            setLoading(false);
+        }
+    }, [user]);
 
-        fetchDonations();  // Trigger the fetch on component mount
-    }, [user]);  // Runs again if user data changes (e.g., user logs in)
-
-    // Render loading state
     if (loading) {
-        return <div className="text-center text-gray-600">Loading donations...</div>;
+        return <div className="text-center text-gray-600 dark:text-gray-400">Loading your donations...</div>;
     }
 
-    // Render error state
     if (error) {
         return <div className="text-center text-red-500">{error}</div>;
     }
 
-    // If there are no donations
     if (donations.length === 0) {
-        return <div className="text-center text-gray-600">You have not made any donations yet.</div>;
+        return (
+            <div className="text-center text-gray-600 dark:text-gray-400">
+                You have not made any donations yet.
+            </div>
+        );
     }
 
-    // Render donations data
     return (
-        <div className="max-w-5xl mx-auto px-4 py-8 m-5 rounded-lg bg-white dark:bg-zinc-800 dark:text-white">
-            <h1 className="text-4xl font-bold text-center mb-6 text-gray-800 dark:text-gray-200">My Donations</h1>
-            <p className="text-center text-gray-600 mb-10 dark:text-gray-400">
+        <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+            <h1 className="text-3xl font-bold text-center mb-6 text-gray-800 dark:text-gray-200">
+                My Donations
+            </h1>
+            <p className="text-center text-gray-600 dark:text-gray-400 mb-8">
                 Here are the donations you have made.
             </p>
 
-            <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 {donations.map((donation) => (
-                    <div key={donation._id} className="bg-white dark:bg-zinc-700 rounded-lg shadow-lg p-6">
-                        <div className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">
-                            Donation for campaign: {donation.campaignTitle}
+                    <Fade key={donation._id} duration={1000} delay={300}>
+                        <div className="bg-white dark:bg-zinc-700 rounded-lg shadow-lg p-6 hover:shadow-xl transition-all">
+                            <div className="lg:text-xl text-[15px] font-semibold mb-4">
+                                <span
+                                    className={`${donation.donationAmount ? 'text-green-500' : 'text-red-500'
+                                        }`}
+                                >
+                                    {donation.donationAmount
+                                        ? `Donation for running campaign: ${donation.campaignId}`
+                                        : `Donation for regular campaign: ${donation.campaignId}`}
+                                </span>
+                            </div>
+
+                            <div className="text-gray-800 dark:text-gray-300 mb-2">
+                                <strong>Donated Amount:</strong> ${donation.amount || donation.donationAmount}
+                            </div>
+                            <div className="text-gray-800 dark:text-gray-300 mb-2">
+                                <strong>Donation Date:</strong> {new Date(donation.donatedAt || donation.date).toLocaleDateString()}
+                            </div>
+                            <div className="text-gray-800 dark:text-gray-300 mb-4">
+                                <strong>User Email:</strong> {donation.userEmail || donation.donorEmail}
+                            </div>
                         </div>
-                        <div className="text-gray-800 dark:text-gray-300 mb-2">
-                            <strong>Donated Amount:</strong> ${donation.amount}
-                        </div>
-                        <div className="text-gray-800 dark:text-gray-300 mb-2">
-                            <strong>Donation Date:</strong> {new Date(donation.donatedAt).toLocaleDateString()}
-                        </div>
-                        <div className="text-gray-800 dark:text-gray-300 mb-4">
-                            <strong>Donor Email:</strong> {donation.donorEmail}
-                        </div>
-                    </div>
+                    </Fade>
                 ))}
             </div>
         </div>
