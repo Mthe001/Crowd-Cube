@@ -44,7 +44,7 @@ const Service = () => {
                     <h1 className="text-4xl font-bold text-gray-800 dark:text-white">
                         <Typewriter
                             words={['Our Services']}
-                            loop={true} // Infinite loop
+                            loop={2} // Infinite loop
                             cursor
                             cursorStyle="_"
                             typeSpeed={100}
