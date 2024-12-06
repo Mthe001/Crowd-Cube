@@ -1,8 +1,8 @@
 # CrowdCube - React + Vite Setup
 
-CrowdCube is a modern web application template built with **React** and **Vite**, designed to help you get started with creating dynamic, responsive web apps. This template provides a minimal and optimized setup that includes **Hot Module Replacement (HMR)** for fast development and integrated **ESLint** for consistent code style.
+CrowdCube is a modern web application template built with **React** and **Vite**, designed to help you get started with creating dynamic, responsive web apps. This template provides a minimal and optimized setup that includes **Hot Module Replacement (HMR)** for fast development, integrated **ESLint** for consistent code style, and modern libraries to enhance your app's UI and animation features.
 
-This template is perfect for building fast, scalable web applications with React, leveraging the power of Vite as the bundler and developer server.
+This template is perfect for building fast, scalable web applications with React, leveraging the power of Vite as the bundler and developer server, and features like **Tailwind CSS**, **React Simple Typewriter**, and **React Awesome Reveal** for enhanced styling and animations.
 
 ---
 
@@ -15,6 +15,9 @@ This template is perfect for building fast, scalable web applications with React
 - **Vite** for fast builds and optimized production performance.
 - **React** for building interactive UIs.
 - Example contact page with a **sweetalert2** integration for form submission notifications.
+- **Tailwind CSS** for utility-first styling and responsive design.
+- **React Simple Typewriter** for adding typewriter-style text animations.
+- **React Awesome Reveal** for smooth reveal animations on scroll.
 
 ---
 
@@ -28,10 +31,12 @@ Make sure you have the following installed:
 
 ### Installation
 
+Follow these steps to get your environment up and running:
+
 1. **Clone the repository:**
 
     ```bash
-    git clone https://github.com/your-username/crowdcube.git
+    git clone https://github.com/programming-hero-web-course2/b10-a10-client-side-Mthe001
     cd crowdcube
     ```
 
@@ -64,6 +69,8 @@ Make sure you have the following installed:
     ```
 
     Your app should now be running at `http://localhost:3000`.
+
+    Git clone server-base https://github.com/programming-hero-web-course2/b10-a10-server-side-Mthe001
 
 ---
 
