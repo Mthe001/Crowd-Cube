@@ -5,15 +5,15 @@ import Swal from 'sweetalert2';
 import { AuthContext } from '../provider/AuthProvider';
 
 const AllCampaignDetails = () => {
-    const { id } = useParams(); // Get campaign ID from URL
-    const { user } = useContext(AuthContext); // Get current logged-in user
+    const { id } = useParams();
+    const { user } = useContext(AuthContext);
     const [campaign, setCampaign] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const [donationAmount, setDonationAmount] = useState(''); // State to store donation amount
+    const [donationAmount, setDonationAmount] = useState('');
 
-    const navigate = useNavigate(); // Initialize navigation
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchCampaignDetails = async () => {
@@ -44,11 +44,14 @@ const AllCampaignDetails = () => {
         fetchCampaignDetails();
     }, [id]);
 
-    // Handle donation submission
+
+    const isDeadlinePassed = campaign?.deadline && new Date(campaign.deadline) < new Date();
+
+
     const handleDonationSubmit = async (e) => {
         e.preventDefault();
 
-        // Validate donation amount
+
         const amount = parseFloat(donationAmount);
         if (!donationAmount || isNaN(amount) || amount <= 0) {
             Swal.fire({
@@ -79,7 +82,7 @@ const AllCampaignDetails = () => {
 
         const donationData = {
             campaignId: id,
-            campaignTitle: campaign.title, // Campaign title
+            campaignTitle: campaign.title,
             userEmail: user.email, // Use logged-in user's email
             amount,
             deadline: campaign.deadline ? campaign.deadline : null, // Include the deadline if available
@@ -113,7 +116,6 @@ const AllCampaignDetails = () => {
                 text: 'Failed to process your donation. Please try again later.',
             });
         }
-
     };
 
     if (loading) {
@@ -136,7 +138,7 @@ const AllCampaignDetails = () => {
     return (
         <div className="p-6 dark:bg-zinc-800 w-full md:w-11/12 mx-auto rounded-lg">
             <button
-                onClick={() => navigate(-1)} // Go back to the previous page
+                onClick={() => navigate(-1)}
                 className="flex items-center text-gray-600 dark:text-gray-200 mb-4"
             >
                 <IoArrowBack className="mr-2 text-xl" />
@@ -180,27 +182,34 @@ const AllCampaignDetails = () => {
                 </p>
             </div>
 
-            {/* Donation Form */}
-            <div className="mt-8">
-                <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">Make a Donation</h2>
-                <form onSubmit={handleDonationSubmit} className="flex flex-col gap-4">
-                    <input
-                        type="number"
-                        value={donationAmount}
-                        onChange={(e) => setDonationAmount(e.target.value)}
-                        placeholder="Enter donation amount"
-                        className="p-2 border border-gray-300 rounded-lg"
-                        min="0"
-                        step="0.01"
-                    />
-                    <button
-                        type="submit"
-                        className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700"
-                    >
-                        Donate
-                    </button>
-                </form>
-            </div>
+            {/* If the deadline has passed, show a message */}
+            {isDeadlinePassed ? (
+                <div className="mt-6 text-red-600 font-semibold">
+                    The campaign has ended. Donations are no longer accepted.
+                </div>
+            ) : (
+                // Donation Form
+                <div className="mt-8">
+                    <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">Make a Donation</h2>
+                    <form onSubmit={handleDonationSubmit} className="flex flex-col gap-4">
+                        <input
+                            type="number"
+                            value={donationAmount}
+                            onChange={(e) => setDonationAmount(e.target.value)}
+                            placeholder="Enter donation amount"
+                            className="p-2 border border-gray-300 rounded-lg"
+                            min="0"
+                            step="0.01"
+                        />
+                        <button
+                            type="submit"
+                            className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700"
+                        >
+                            Donate
+                        </button>
+                    </form>
+                </div>
+            )}
         </div>
     );
 };
