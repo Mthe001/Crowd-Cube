@@ -2,21 +2,18 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { IoArrowBack } from 'react-icons/io5';
 import Swal from 'sweetalert2';
-
-
 import { AuthContext } from '../provider/AuthProvider';
 
 const AllCampaignDetails = () => {
-    const { id } = useParams();
-    const { user } = useContext(AuthContext);
+    const { id } = useParams(); // Get campaign ID from URL
+    const { user } = useContext(AuthContext); // Get current logged-in user
     const [campaign, setCampaign] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const [donationAmount, setDonationAmount] = useState('');
+    const [donationAmount, setDonationAmount] = useState(''); // State to store donation amount
 
-    const navigate = useNavigate();
-
+    const navigate = useNavigate(); // Initialize navigation
 
     useEffect(() => {
         const fetchCampaignDetails = async () => {
@@ -96,11 +93,11 @@ const AllCampaignDetails = () => {
                 body: JSON.stringify(donationData),
             });
 
+            const data = await response.json();
             if (!response.ok) {
                 throw new Error(`Failed to submit donation. Status: ${response.status}`);
             }
 
-            const data = await response.json();
             Swal.fire({
                 icon: 'success',
                 title: 'Thank You!',
@@ -116,6 +113,7 @@ const AllCampaignDetails = () => {
                 text: 'Failed to process your donation. Please try again later.',
             });
         }
+
     };
 
     if (loading) {
@@ -138,7 +136,7 @@ const AllCampaignDetails = () => {
     return (
         <div className="p-6 dark:bg-zinc-800 w-full md:w-11/12 mx-auto rounded-lg">
             <button
-                onClick={() => navigate(-1)}
+                onClick={() => navigate(-1)} // Go back to the previous page
                 className="flex items-center text-gray-600 dark:text-gray-200 mb-4"
             >
                 <IoArrowBack className="mr-2 text-xl" />
