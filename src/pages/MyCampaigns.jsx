@@ -37,7 +37,7 @@ const MyCampaigns = () => {
                 }
             } catch (err) {
                 console.error('Error fetching campaigns:', err);
-                setError('Failed to load your campaigns. Please try again later.');  // Update error state with more user-friendly message
+                setError(' You have not campaign created yet !');
             } finally {
                 setLoading(false);
             }
