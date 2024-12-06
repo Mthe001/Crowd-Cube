@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../provider/AuthProvider';  // Import useAuth hook from AuthContext
-import { Fade } from 'react-awesome-reveal';  // Import Fade animation from react-awesome-reveal
+import { useAuth } from '../provider/AuthProvider';
+import { Fade } from 'react-awesome-reveal';
 
 const MyDonations = () => {
-    const { user } = useAuth();  // Get logged-in user data (including email) from AuthContext
-    const [donations, setDonations] = useState([]);  // To store donations data
-    const [loading, setLoading] = useState(true);    // Loading state
-    const [error, setError] = useState(null);        // Error state
+    const { user } = useAuth();
+    const [donations, setDonations] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchDonations = async () => {
-            // Check if the user and user email exist
+
             if (!user || !user.email) {
                 setError('No user email found');
                 setLoading(false);
@@ -21,27 +21,14 @@ const MyDonations = () => {
             console.log(`Fetching donations for: ${userEmail}`);
 
             try {
+
                 const regularDonationsResponse = await fetch(`https://assignment-10-server-kappa-steel.vercel.app/donations/user/${userEmail}`);
                 if (!regularDonationsResponse.ok) {
                     throw new Error('Failed to fetch regular donations');
                 }
                 const regularDonations = await regularDonationsResponse.json();
 
-                let runningDonations = [];
-                try {
-                    const runningDonationsResponse = await fetch(`https://assignment-10-server-kappa-steel.vercel.app/running-donations/user/${userEmail}`);
-                    if (runningDonationsResponse.ok) {
-                        runningDonations = await runningDonationsResponse.json();
-                    } else {
-                        console.warn('Running donations API not available');
-                    }
-                } catch (err) {
-                    console.warn('Error fetching running donations:', err);
-                }
-
-                // Combine both regular and running donations
-                const allDonations = [...regularDonations, ...runningDonations];
-                setDonations(allDonations);
+                setDonations(regularDonations);
 
             } catch (err) {
                 console.error('Error fetching donations:', err);
@@ -69,7 +56,7 @@ const MyDonations = () => {
     if (donations.length === 0) {
         return (
             <div className="text-center text-gray-600 dark:text-gray-400">
-                You have not made any donations yet.
+                You have not made any regular donations yet.
             </div>
         );
     }
@@ -80,7 +67,7 @@ const MyDonations = () => {
                 My Donations
             </h1>
             <p className="text-center text-gray-600 dark:text-gray-400 mb-8">
-                Here are the donations you have made.
+                Here are the regular donations you have made.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">

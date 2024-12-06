@@ -14,7 +14,7 @@ import HomeLayout from '../layouts/HomeLayout';
 import AuthLayout from '../layouts/AuthLayout';
 import UpdateProfile from '../pages/UpdatePorfile';
 import Home from '../components/Home';
-import CampaignDetails from '../card/CampaignDetails';
+
 import AllCampaignDetails from '../card/AllCampaignDetails';
 import UpdateMyCampaign from '../components/UpdateMyCampaign';
 import Faq from '../components/Faq';
@@ -49,11 +49,7 @@ const router = createBrowserRouter([
                 loader: () => fetch('https://assignment-10-server-kappa-steel.vercel.app/campaigns')
             },
 
-            {
-                path: '/running-campaigns/:id',
-                element: <CampaignDetails />,
 
-            },
             {
                 path: '/campaigns/:id',
                 element: <AllCampaignDetails />,
