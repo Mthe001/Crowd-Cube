@@ -68,6 +68,7 @@ const MyCampaigns = () => {
 
         if (result.isConfirmed) {
             try {
+                // Send DELETE request to backend
                 const response = await fetch(`http://localhost:5000/myCampaigns/${campaignId}`, {
                     method: 'DELETE',
                 });
@@ -78,6 +79,8 @@ const MyCampaigns = () => {
 
                 // Remove deleted campaign from state
                 setCampaigns(prevCampaigns => prevCampaigns.filter(campaign => campaign._id !== campaignId));
+
+                // Show success alert
                 Swal.fire('Deleted!', 'Your campaign has been deleted.', 'success');
             } catch (error) {
                 console.error('Error deleting campaign:', error);
@@ -85,6 +88,7 @@ const MyCampaigns = () => {
             }
         }
     };
+
 
     // If loading, show loading state
     if (loading) {
