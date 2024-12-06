@@ -19,16 +19,29 @@ const CampaignDetails = () => {
 
     if (!campaign) return <p>Loading...</p>;
 
-    // Function to format the deadline correctly
+
     const formatDeadline = (deadline) => {
-        const [day, month, year] = deadline.split('/'); // Split by '/'
-        const date = new Date(year, month - 1, day); // Date expects month to be 0-indexed
-        return date.toLocaleDateString(); // Format the date in a human-readable format
+        const [day, month, year] = deadline.split('/');
+        const date = new Date(year, month - 1, day);
+        return date.toLocaleDateString();
     };
 
-    // Function to handle donation
+
+    const isDeadlinePassed = campaign.deadline && new Date(campaign.deadline) < new Date();
+
     const handleDonate = async () => {
-        // Ask for the donation amount
+
+        if (isDeadlinePassed) {
+            Swal.fire({
+                title: 'Campaign Ended!',
+                text: 'This campaign has ended and is no longer accepting donations.',
+                icon: 'error',
+                confirmButtonText: 'Close',
+            });
+            return;
+        }
+
+
         const { value: donationAmount } = await Swal.fire({
             title: 'Enter Donation Amount',
             input: 'number',
@@ -48,12 +61,12 @@ const CampaignDetails = () => {
             },
         });
 
-        // If a donation amount is entered, proceed with donation
+
         if (donationAmount) {
             const newRaisedAmount = campaign.raisedAmount + parseFloat(donationAmount);
 
             try {
-                // Save donation in running-donations collection
+
                 const response = await fetch('http://localhost:5000/running-donations', {
                     method: 'POST',
                     headers: {
@@ -62,8 +75,8 @@ const CampaignDetails = () => {
                     body: JSON.stringify({
                         campaignId: campaign._id,
                         donationAmount: parseFloat(donationAmount),
-                        donorName: user?.displayName || 'Anonymous', // Use the user's name if available
-                        donorEmail: user?.email || 'anonymous@example.com', // Use the user's email if available
+                        donorName: user?.displayName || 'Anonymous',
+                        donorEmail: user?.email || 'anonymous@example.com',
                     }),
                 });
 
@@ -71,7 +84,7 @@ const CampaignDetails = () => {
                     throw new Error('Donation failed');
                 }
 
-                // Update raisedAmount in running campaign
+
                 const campaignUpdateResponse = await fetch(`http://localhost:5000/running-campaigns/${id}/donate`, {
                     method: 'PATCH',
                     headers: {
@@ -151,14 +164,21 @@ const CampaignDetails = () => {
                         </div>
                     </div>
 
-                    <div className="mt-6">
-                        <button
-                            onClick={handleDonate}
-                            className="w-full md:w-auto btn border-gray-500 bg-zinc-800 text-white py-2 px-4 rounded-lg hover:bg-gray-600"
-                        >
-                            Donate
-                        </button>
-                    </div>
+                    {/* Show donation button only if the deadline hasn't passed */}
+                    {!isDeadlinePassed ? (
+                        <div className="mt-6">
+                            <button
+                                onClick={handleDonate}
+                                className="w-full md:w-auto btn border-gray-500 bg-zinc-800 text-white py-2 px-4 rounded-lg hover:bg-gray-600"
+                            >
+                                Donate
+                            </button>
+                        </div>
+                    ) : (
+                        <div className="mt-6 text-red-600 font-semibold">
+                            Donations are no longer accepted as the campaign has ended.
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
