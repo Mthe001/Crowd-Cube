@@ -27,6 +27,10 @@ const RunningCampaign = () => {
                                 <span className="text-lg font-bold">{`Goal: $${campaign.goalAmount}`}</span>
                                 <span className="text-lg font-semibold text-green-500">{`Raised: $${campaign.raisedAmount || 0}`}</span>
                             </div>
+                            <div className="mt-2 text-sm text-gray-500">
+                                <span>Deadline: {campaign.deadline}</span>
+
+                            </div>
                             <div className="mt-4">
                                 <Link to={`running-campaigns/${campaign._id}`} className="btn btn-primary w-full">See More</Link>
                             </div>
