@@ -19,6 +19,7 @@ import AllCampaignDetails from '../card/AllCampaignDetails';
 import UpdateMyCampaign from '../components/UpdateMyCampaign';
 import Faq from '../components/Faq';
 import TermsOfCondition from '../pages/TermsOfCondition';
+import PrivacyPolicy from '../pages/PrivacyPolicy';
 
 
 const router = createBrowserRouter([
@@ -69,7 +70,12 @@ const router = createBrowserRouter([
                 element: <TermsOfCondition />,
             },
 
-            // Private Routes under HomeLayout
+            {
+                path: '/privacy',
+                element: <PrivacyPolicy />,
+            },
+
+
             {
                 path: "add-campaign",
                 element: (
