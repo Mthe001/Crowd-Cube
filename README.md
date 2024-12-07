@@ -212,6 +212,10 @@ Follow these steps to get your environment up and running:
 
     Git clone server-base https://github.com/programming-hero-web-course2/b10-a10-server-side-Mthe001
 
+4. **View Live This Site!**
+
+   Click here : https://assginment-10-6b155.web.app/
+
 ---
 
 ## Project Structure
