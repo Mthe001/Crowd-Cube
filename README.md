@@ -210,7 +210,7 @@ Follow these steps to get your environment up and running:
 
     Your app should now be running at `http://localhost:3000`.
 
-    Git clone server-base https://github.com/programming-hero-web-course2/b10-a10-server-side-Mthe001
+    Git clone server-base https://github.com/Mthe001/Crowd-Cube-Server.git
 
 4. **View Live This Site!**
 
