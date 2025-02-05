@@ -218,7 +218,17 @@ Follow these steps to get your environment up and running:
 
 ---
 
-## Project Structure
+
+
+## 👤 Creator Info
+
+👨‍💻 **Developer:** Mthe001\
+📧 **Email:** [mtheredwanulhaque@gmail.com](mailto\:mtheredwanulhaque@gmail.com)\
+📞 **Contact:** +8801614591672\
+🔗 **GitHub:** [Mthe001](https://github.com/Mthe001)\
+🔗 **LinkedIn:** [Your LinkedIn Profile](https://linkedin.com/in/yourprofile)
+
+---
 
 The project structure is simple and follows the standard React + Vite setup.
 
